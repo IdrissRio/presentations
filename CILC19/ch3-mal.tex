@@ -1,0 +1,223 @@
+The \mAL~\cite{baral2015action} action language is a generalization of the single-agent
+action languages, extensively studied in the literature
+\cite{modernApproach, bolander2011epistemic}, to the case of multi-agent
+domains for epistemic planning.
+%Anyway in~\cite{le2018efp} is discussed how, for certain situations, the semantics of \mAP\ is not intuitive and, using \cite{vEijck17}, is proposed a slightly expanded version called \mAL, that will be the language described in this section.
+
+%\mAL\ is a high-level action language for epistemic planning
+%in multi-agent domains.
+The language has a declarative, English-like
+syntax and an event model based semantics which permits to reason about beliefs.
+
+The semantics of \mAL\ is based on the assumption that agents are
+truthful. The language is built over a signature $(\sAG,\sF,\sAC)$, where \sAG\ is
+a finite set of agent identifiers, $\sF$ is a set of fluents, and
+$\sAC$ is a set of actions.
+
+%To maintain this paper self-contained
+We will introduce only the basics
+%notions on formalizing knowledge and reasoning about effects of actions
+%in multi-agent system without describing the language in depth.
+features of \mAL.
+The remaining details about the language can be found in
+\cite{baral2015action}. The following will be used as working 
+example through the paper:
+
+%Before we do so, let us consider the following example:
+\begin{example}[Three Agents and the Coin Box]\label{ex:coin_box}
+	Three agents, \agent{A}, \agent{B}, and \agent{C}, are in a room where in the middle there
+	is a box containing a coin. It is \ck\ that:
+	\begin{itemize}
+		\item None of the agents know whether the coin lies heads or tails up;
+		\item The box is locked and one needs a key to open it;
+		\item Agent \agent{A} has the key of the box;
+		\item In order to learn whether the coin lies heads or tails up, an agent
+		  can peek into the box, but this require the box to be open;
+		\item If one agent is looking at the box and a second agents peeks into
+		  the box, then the first agent will observe this fact and will be able to
+		  conclude that the second agent knows the status of the coin. On the other
+		  hand, the first agent's knowledge about which face of the coin is up does
+		  not change.
+		\item Distracting an agent causes her to not look at the box;
+		\item Signaling an agent to look at the box causes such agent to
+		  look at the box;
+		\item Announcing that the coin lies heads or tails up will make this
+		  \ck\ among the agents that are listening.
+	\end{itemize}
+
+	Agent \agent{A} would like to know whether the coin lies heads or tails up.
+	She would also like to let agent \agent{B} knowing that she knows this fact.
+	However, she would like to keep this information secret from \agent{C}.
+	
+	This can be achieved by:
+	\begin{enumerate*}[label=\roman*)]
+		\item\emph{Distracting} \agent{C} from looking at the box;
+		\item\emph{Signaling} \agent{B} to look at the box if \agent{B} is not looking at it;
+		\item\emph{Opening} the box; and
+		\item\emph{Peeking} into the box.
+	\end{enumerate*}
+
+	%Let us denote the multi-agent domain of this example with $D_1$.
+	For this domain, we have that $\sAG=\bra{\agent{A}, \agent{B}, \agent{C}}$, while the set of fluent \sF\
+	consists of:
+	\begin{itemize}
+		\item \head: the coin lies heads up;
+		\item \haskey{ag}: agent \agent{ag} has the key of the box;
+		\item \texttt{opened}: the box is open; and
+		\item \looking{ag}: agent \agent{ag} is looking at the box.
+	\end{itemize}
+	Let $\agent{ag} \in \sAG$, the set of actions \sAC\ comprises:
+%	\begin{itemize}
+%		\item \open{ag_1}: agent \agent{ag_1} opens the box;
+%		\item \peek{ag_1}: agent \agent{ag_1} peeks into the box;
+%		\item \signal{ag_1}{ag_2}: agent \agent{ag_2} signals agent \agent{ag_1} to look at the box;
+%		\item \distract{ag_1}{ag_2}: agent \agent{ag_2}  distracts agent \agent{ag_1};% (so that
+%		  %she does not look at the box);
+%		\item \shout{ag_1}: agent \agent{ag_1} announces that the coin lies tail up.
+%	\end{itemize}
+	\begin{itemize}
+		\item \open{}: an agent opens the box;
+		\item \peek{}: an agent peeks into the box;
+		\item \signal{ag}{}: an agent signals to agent \agent{ag} to look at the box;
+		\item \distract{ag}{}: an agent distracts agent \agent{ag};% (so that
+		%she does not look at the box);
+		\item \shout{}: an agent announces that the coin lies tails up.
+	\end{itemize}
+\end{example}
+In~\cite{baral2015action}, the authors distinguished between three types of actions in the
+following way (some examples of action execution can be found in Appendix):
+\begin{itemize}
+	\item \emph{World-altering} action (also called \emph{ontic}):
+	used to modify certain properties (\ie fluents) of the world, \eg
+	the action \open{} or \distract{ag}{} of Example~$\ref{ex:coin_box}$.
+	\item \emph{Sensing} action: used by an agent to refine her beliefs about the world, \eg
+	the action \peek{}.
+	\item \emph{Announcement} action: used by an agent to affect the beliefs of other
+	agents. \eg in Example~$\ref{ex:coin_box}$ the action \shout{}.
+\end{itemize}
+%We will denote with \ai\ the set of the possible action instances
+%$\calA \times \sAG$.
+
+Given an action instance $\defemph{a} \in \ai$, where \ai\ is the set of all the possible action instances $\calA \times \sAG$, a fluent literal \defemph{f} $\in \sF$, a fluent formula $\phi$ and a belief formula $\varphi$ we can quickly introduce the syntax adopted in \mAL.
+
+
+\emph{Executability conditions} are captured by statements of the form:
+\begin{equation*}
+\label{eq:exec_cond}
+\exec{a}{\varphi}
+\end{equation*}
+%
+For ontic actions we have:
+% the follow statement is provided:
+\begin{equation*}
+\label{eq:causes}
+\causes{a}{f\ } \mathbf{if}\ \varphi
+\end{equation*}
+%For the sake of
+%readability, if $\psi = \top$ then the executability condition, \ie \textquotedblleft $\mathbf{if}\ \psi$"
+%is omitted.
+%
+Sensing actions statements have the form expressed by
+\begin{equation*}
+\label{eq:determines}
+\determine{a}{f}
+\end{equation*}
+Finally announcement actions are expressed as follows:
+\begin{equation*}
+\label{eq:announces}
+\announce{a}{\phi}.
+\end{equation*}
+%
+%{\footnotesize The actions of the domain $D_1$ are specified in Appendix~\ref{ex:domain_action}.}\\
+
+
+In multi-agent domains the execution of an action might change or not the
+beliefs of an agent.
+This because, in such domains, each action instance associates an observability relation to each agent.
+For example the agent
+\agent{C} that becomes oblivious as distracted by the agent \agent{A}, is
+not able to see the execution of the action \open{A}. On the other hand,
+watching an agent executing a sensing or an announcement action can change the
+beliefs of who is watching, \eg the agent \agent{B}, who is watching
+the agent \agent{A} sensing the status of the coin, will know that \agent{A} knows the status of the coin without knowing the status herself. In Table~\ref{tb:observability} are summarized the possible observability relations for each type of action.
+\begin{table}
+  \centering
+  \begin{tabular}{||c||c|c|c||}
+    \hhline{|t:=:t:===:t|}
+    \multicolumn{1}{||c||}{Action type}
+    & \multicolumn{1}{c|}{\phantom{...}Full observers\phantom{...}}
+    & \multicolumn{1}{c|}{\phantom{..}Partial Observers\phantom{..}}
+    & \multicolumn{1}{c||}{\phantom{...}Oblivious\phantom{...}}\\
+    \hhline{|:=::===:|}
+    \multicolumn{1}{||c||}{World-altering}
+    & \multicolumn{1}{c|}{\checkmark}
+    & \multicolumn{1}{c|}{}
+    & \multicolumn{1}{c||}{\checkmark}\\
+    \hhline{||-||-|-|-||}
+    \multicolumn{1}{||c||}{Sensing}
+    & \multicolumn{1}{c|}{\checkmark}
+    & \multicolumn{1}{c|}{\checkmark}
+    & \multicolumn{1}{c||}{\checkmark}\\
+    \hhline{||-||-|-|-||}
+    \multicolumn{1}{||c||}{Announcement}
+    & \multicolumn{1}{c|}{\checkmark}
+    & \multicolumn{1}{c|}{\checkmark}
+    & \multicolumn{1}{c||}{\checkmark}\\
+    \hhline{|b:=:b:===:b|}
+  \end{tabular}
+  \caption{\label{tb:observability}Action type and observability relations.}
+\end{table}
+Partial observability for World-altering action is not admitted as, whenever an agent is aware of the execution of an ontic action, she must knows its effects on the world as well.
+
+
+For brevity we address the reader to~\cite{baral2015action} for the definition of the transition function in \mAL.
+%The core of the language semantics is the transition function, defined using the concept of
+%\emph{update model}. An $\lAG$-substitution is a set
+%$\bra{\nicefrac{p_1}{\varphi_1},...,\nicefrac{p_k}{\varphi_k}}$
+%where each $p_i$ is a fluent in $\sF$ and each $\varphi_i \in \lagC$.
+%\begin{definition}[Update Model]
+%Let \sAG\ be a set of \defemph{n} agents, an \emph{update model} $\Sigma$ is a tuple
+%$\tuple{\Sigma, \rrel{1},...,\rrel{n}, \mathrm{pre}, \mathrm{sub} }$ where
+%\begin{itemize}
+%\item $\Sigma$ is a set, whose elements are called \emph{events};
+%\item each $\rrel{i}$ is a binary relation on $\Sigma$;
+%\item $\func{pre}{\Sigma}{\lagC}$ is a function that map each event $\defemph{e} \in \Sigma$
+%to a formula in $\lagC$; and
+%\item $\func{sub}{\Sigma}{SUB_{\lagC}}$ is a function mapping each event $\defemph{e} \in \Sigma$
+%to a substitution in $SUB_{\lagC}$, where $SUB_{\lagC}$ is the set of all the $\lagC$-substitutions.
+%\end{itemize}
+%\end{definition}
+%
+%\begin{definition}[updates through update models] Let M be a Kripke structure and
+%$\Sigma= \tuple{\Sigma, \rrel{1},...,\rrel{n}, \mathrm{pre}, \mathrm{sub} }$
+%be an update model. We define $M'= M \otimes \Sigma$ as the updated Kripke structure
+%obtained from M through the update model $\Sigma$, where:
+%\begin{enumerate}
+%\item$M'[S] = \bra{(\defemph{s}, \tau) \mid \defemph{s} \in M[S] \wedge  \tau \in
+%\Sigma \wedge  \state{}{s}\models pre(\tau)};$
+%\item$((\defemph{s},\tau),(\defemph{s}',\tau')) \in M'[i]$ iff
+%$ (\defemph{s},\tau), (\defemph{s}',\tau') \in M'[S],
+%(\defemph{s},\defemph{s}') \in M[i] \wedge (\tau, \tau') \in R$;
+%\item$\forall (\defemph{s},\tau) \in M'[S] \wedge f \in \sF, M'[\pi]((\defemph{s},\tau))\models f$ iff
+%            $\bra{\nicefrac{f}{\varphi}} \in sub(\tau) \wedge \state{}{s} \models \varphi$. 
+%\end{enumerate}
+%\end{definition}
+%
+%
+%Finally we define the \mAL\ transition function $\trfunc$.
+%Let \state{}{s} be a state and let $\defemph{a}\in \ai\ $. The result of executing $\defemph{a}$ in
+%$\state{}{s}$ is a set of states, denoted by $\trfunc(\defemph{a}, \state{}{s})$ defined as follow:
+%\begin{itemize}
+%\item If \defemph{a} is not executable in \state{}{s} then $\trfunc(\defemph{a}, \state{}{s}) =  \emptyset$
+%\item If \defemph{a} is executable in \state{}{s} and $(\calE, E_d)$ is the
+%representation of the occurrence of a in \state{}{s} then
+%\begin{itemize}
+%\item $\trfunc( \defemph{a}, \state{}{s})= \state{}{s}\otimes (\calE, E_d)$ if \defemph{a} is an ontic action instance.
+%\item $\trfunc(\defemph{a}, \state{}{s}) = M[F_D(\defemph{a},M,\defemph{s}),\defemph{f}]] \otimes (\calE, E_d)$  if
+%\defemph{a} is a sensing action instance that senses $\defemph{f}$ and $\state{}{s} \models \defemph{f}$;
+%\item $\trfunc(\defemph{a}, \state{}{s}) = M[F_D(\defemph{a},M,\defemph{s}),\phi]] \otimes (\calE, E_d)$  if
+%\defemph{a} is an announcement action instance that announces $\phi$.
+%\end{itemize}
+%\end{itemize}
+%where $F_D(\defemph{a}, M,\defemph{s})$ is the set of all the fully-observant agents
+%of $\defemph{a}$ in \state{}{s}.

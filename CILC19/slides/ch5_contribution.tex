@@ -1,0 +1,267 @@
+%%%%%%%%% INTRODUCTION TO OURL
+
+\begin{frame}{Overview}
+	\vspace*{1cm}
+	We introduce the action language \emphSlide{\ourL}\\
+	\begin{itemize}
+		\item[-] Used to describe \mep\ problems
+		\item[-] Same syntax of the action language \emphSlide{\mAP}~\cite{baral2015action}
+		\item[-] As expressive as \mAP
+		\item[-] Uses \posS\ as states
+	\end{itemize}
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[xshift=-4cm,yshift=-7.8cm] at (current page.north east) {\includegraphics[width=0.4\textwidth]{img/studying_charlie}};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Actions}
+
+	\textbf{Three} types of actions:
+	\begin{itemize}
+		\onslide<1->{
+		{\only<2-3>{\transparent{0.5}}
+		\item[-] \only<1>{\emphSlide}{Ontic}: modifies some fluents of the world
+		      \begin{itemize}
+			      \item[] \only<1>{\ttSlide}{Charlie \emph{opens} the box}
+		      \end{itemize}
+		      }
+		      }
+		      \onslide<2->{
+		      {\only<3>{\transparent{0.5}}
+		\item[-] \only<2>{\emphSlide}{Sensing}: senses the true value of a fluent
+		      \begin{itemize}
+			      \item[] \only<2>{\ttSlide}{Charlie \emph{peeks} inside the box}
+		      \end{itemize}
+		      }
+		      }
+		      \onslide<3->{
+		\item[-] \emphSlide{Announcement}:  announces the fluent to other agents
+		      \begin{itemize}
+			      \item[] \ttSlide{Charlie \emph{announces} the coin position}
+		      \end{itemize}
+		      }
+	\end{itemize}
+	\vfill
+	\begin{center}
+		\only<1>{\includegraphics[width=0.3\textwidth]{img/open_charlie}}
+		\only<2>{\includegraphics[width=0.3\textwidth]{img/peek_charlie}}
+		\only<3>{\includegraphics[width=0.4\textwidth]{img/announce_charlie}}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Observability Relations}
+	An \emphSlide{execution} of an action might change or not an agents' belief accordingly to her degree of awareness\\
+	\vspace{0.2cm}
+	%This because each \textbf{action instance} ($\calA \times \sAG$)  associates an \textbf{observability relation} to each agent:
+	\begin{table}
+		\centering
+		\begin{adjustbox}{width=\columnwidth,center}
+			\begin{tabular}{||c||c|c|c||}
+				\hhline{|t:=:t:===:t|}
+				\multicolumn{1}{||c||}{Action type}
+				 & \multicolumn{1}{c|}{\phantom{...}Full observers\phantom{...}}
+				 & \multicolumn{1}{c|}{\phantom{..}Partial Observers\phantom{..}}
+				 & \multicolumn{1}{c||}{\phantom{...}Oblivious\phantom{...}}      \\
+				\hhline{|:=::===:|}
+				\multicolumn{1}{||c||}{Ontic}
+				 & \multicolumn{1}{c|}{\checkmark}
+				 & \multicolumn{1}{c|}{}
+				 & \multicolumn{1}{c||}{\checkmark}                               \\
+				\hhline{||-||-|-|-||}
+				\multicolumn{1}{||c||}{Sensing}
+				 & \multicolumn{1}{c|}{\checkmark}
+				 & \multicolumn{1}{c|}{\checkmark}
+				 & \multicolumn{1}{c||}{\checkmark}                               \\
+				\hhline{||-||-|-|-||}
+				\multicolumn{1}{||c||}{Announcement}
+				 & \multicolumn{1}{c|}{\checkmark}
+				 & \multicolumn{1}{c|}{\checkmark}
+				 & \multicolumn{1}{c||}{\checkmark}                               \\
+				\hhline{|b:=:b:===:b|}
+			\end{tabular}
+		\end{adjustbox}
+	\end{table}
+\end{frame}
+
+
+\begin{frame}{\Pos\ as a state}
+	In \ourL\ a state is encoded by a \pos\ where
+	\begin{itemize}
+		\item[-] (\agentSlide{agent}, $\sigma$) represent the \posS\  believed by \agentSlide{agent}
+		\item[-] If \ttSlide{f} $\in \sF$ is present then it is true
+	\end{itemize}
+	\vspace{1cm}
+
+	\onslide<1->{
+
+		%	{\small Equations are expressed as follows:}\\
+		%	\begin{center}
+		%		$\poss{u} = \bra{(\agentSlide{ag_1}, \sigma), (\agentSlide{ag_2}, \sigma^\prime), \dots ,\ttSlide{f},$ \ttSlide{f$^\prime$} $, \dots}$\\
+		%		{\footnotesize \transparent{0.8} where \agentSlide{ag_1}, \agentSlide{ag_2} $\in \sAG$, $\sigma, \sigma^\prime$ are sets of \posS\ and \ttSlide{f}, \ttSlide{f$^\prime$} $\in \sF$.}}
+		%			\end{center}
+		\hspace*{-0.2cm}
+		$\emphColorSlide{\poss{w}}= \{%
+			(\agentSlide{ag},\bra{\poss{w}, \poss{w^\prime}}),%
+			(\agentSlide{C},\bra{\poss{v}, \poss{v^\prime}}),%
+			\ttSlide{look(\agentSlide{ag})},%
+			\ttSlide{key(\agentSlide{A})},%
+			\ttSlide{opened},%
+			\ttSlide{heads}%
+			\}$
+		{\footnotesize \transparent{0.8} where \agentSlide{ag} $\in \bra{\agentSlide{A}, \agentSlide{B}}$}
+	}
+	\begin{center}
+
+	\end{center}
+	\vfill
+	\onslide<2->{
+		\begin{figure}
+			\centering
+			\hspace*{-0.8cm}
+			{%
+				\scalebox{.65}%
+				{%
+					\raisebox{1.5cm}{
+
+						\input{img/pos_open_state_soe}
+					}%
+				}%
+			}%
+			\scalebox{0.6}{
+				\raisebox{0cm}{
+					\input{img/pos_open_state_lgraph_big}
+				}%
+			}%
+		\end{figure}%
+		\begin{center}
+			{\footnotesize \transparent{0.8} \Pos\ \emphSlide{\poss{w}} expanded for clarity}
+		\end{center}
+	}
+\end{frame}
+
+\begin{frame}{State equality}
+	\begin{itemize}
+		\item[-] \PosS\ captures classes of bisimilar Kripke structures
+		\item[-] \PosS\ {equality} considers bisimilarity
+		\item[-] This help for the \emphSlide{visited states} problem in \mep
+	\end{itemize}
+	\vfill
+	\onslide<2->{
+		%\ttSlide{$$\Delta = \peek{B};\distract{B}{C};\flip{C};\tell{B}{C}$$}
+		{\footnotesize{\input{img/equality_soe}}}
+		\begin{figure}
+			\centering
+			{\scalebox{.37}{\input{img/equality1_corr}}}
+			\hfill
+			{\scalebox{0.37}{\input{img/equality2}}}
+		\end{figure}
+	}
+\end{frame}
+
+\subsection*{Entailment}
+\begin{frame}{Entailment}
+	Let $\varphi,\varphi_{1},\varphi_{2}$ be beliefs formula and \poss{u} be a \pos
+	\begin{block}{Entailment w.r.t. \posS}
+			\begin{itemize}[<+->]
+			\item[-] $\poss{u} \models \ttSlide{l}$ if $\possarg{u}{\ttSlide{l}}= 1$;
+			%\item $\poss{u} \models \neg \phi$ if $\poss{u} \not \models \phi$;
+			%\item $\poss{u} \models \phi_1 \vee \phi_2$ if $\poss{u} \models
+			%	      \phi_1$ or $\poss{u} \models \phi_2$;
+			%\item $\poss{u} \models \phi_1 \wedge \phi_2$ if $\poss{u} \models
+			%	      \phi_1$ and $\poss{u} \models \phi_2$.
+			\item[-] $\poss{u} \models \bBSlide{\agentSlide{ag}}{\varphi}$ if for each $\poss{v} \in \possarg{u}{\agentSlide{ag}}$, $\poss{v} \models \varphi$;
+			      %\item $\poss{u} \models \neg \varphi$ if $\poss{u} \not\models \varphi$;
+		%	\item $\poss{u} \models \varphi_1 \vee \varphi_2$ if $\poss{u} \models \varphi_1$ or $\poss{u}\models \varphi_2$;
+		%	\item $\poss{u} \models \varphi_1 \wedge \varphi_2$ if $\poss{u} \models \varphi_1$ and $\poss{u}\models \varphi_2$;
+			\item[-] $\poss{u} \models \eAlpha{\varphi}$ if $\poss{u} \models
+				      \bB{ag}{\varphi}$ for all $\agentSlide{ag} \in \alpha$;
+			\item<.->[-] $\poss{u} \models \cAlpha{\varphi}$ if
+			      $\poss{u} \models \eAlphaIter{k}{\varphi}$ for every
+			      $k\geq0$, where $\eAlphaIter{0}{\varphi} = \varphi$ and
+			      $\eAlphaIter{k+1}{\varphi}=\eAlpha{(\eAlphaIter{k}{\varphi})}$.
+		\end{itemize}
+	\end{block}
+		\onslide<3->{The entailment for the standard operators is defined as usual}
+\end{frame}
+
+\subsection*{Transition function}
+\begin{frame}{Ontic Actions}
+	
+	\begin{block}{$\trfunc$ for Ontic Actions \hfill $\trfunc: \ai\times\Sigma \rightarrow \Sigma \cup \bra{\emptyset}$}
+	
+	Let \texttt{a} be an \emphSlide{ontic action} instance, \poss{u} a \pos\ and \ttSlide{l} be \ttSlide{f} or \ttSlide{$\neg$}\ttSlide{f}\\
+			\vspace{0.2cm}
+	\begin{tabular}{rl}
+		$\trfunc(\texttt{a}, \poss{u}) =  \emptyset$ &if \texttt{a} is not executable in \poss{u}\\
+		$\trfunc( \texttt{a}, \poss{u}) = \poss{v}$& if \texttt{a} \emphSlide{modifies} the \ttSlide{literals} $\in$ \res{a}\\
+	\end{tabular}
+	
+	\vspace{0.65cm}
+	Where \poss{v} is\\
+		\vspace{0.2cm}
+		      $\begin{cases}
+				      \possarg{v}{\ttSlide{l}} = \possarg{u}{\ttSlide{l}} & \text{ if } \ttSlide{l} \not\in \res{a} \\
+				      \possarg{v}{\ttSlide{l}} = \resSlide{a}{l}                  & \text{ if } \ttSlide{l} \in \res{a}  
+				      %\res a &\text{ if } \defemph{f} \in \res{a}
+			      \end{cases}$
+		      \vspace*{0.2cm}
+		      \\and
+		      \vspace*{0.2cm}
+		      \\
+		      $\begin{cases}
+				      \possarg{v}{\agentSlide{ag}} = \possarg{u}{\agentSlide{ag}}                                                        & \text{ if } \agentSlide{ag} \in \posoblivious \\
+				      \possarg{v}{\agentSlide{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agentSlide{ag}}} \trfunc( \texttt{a}, \poss{w}) & \text{ if } \agentSlide{ag} \in \posfull
+			      \end{cases}$
+			    \end{block}
+
+\end{frame}
+
+
+\begin{frame}{Sensing Actions}
+	
+	\begin{block}{$\trfunc$ for Sensing Actions \hfill $\trfunc: \ai\times\Sigma \rightarrow \Sigma \cup \bra{\emptyset}$}
+		
+		Let \texttt{a} be an \emphSlide{sensing action} instance, and \poss{u} a \pos\  and \ttSlide{l} be \ttSlide{f} or \ttSlide{$\neg$}\ttSlide{f}\\
+		\vspace{0.2cm}
+		\begin{tabular}{rl}
+			$\trfunc(\texttt{a}, \poss{u}) =  \emptyset$ &if \texttt{a} is not executable in \poss{u}\\
+			$\trfunc( \texttt{a}, \poss{u}) = \poss{v}$& if the literal \ttSlide{l} is \emphSlide{sensed}\\
+		\end{tabular}
+		
+		\vspace{0.65cm}
+		Where \poss{v} is\\
+		\vspace{0.2cm}
+		$\begin{cases}
+		\emptyset & \text{if } \sensedSlide{a}{l} \neq \possarg{u}{\ttSlide{l}}\\
+		\possarg{v}{\agentSlide{ag}} = \possarg{u}{\agentSlide{ag}}                                                                                                   & \text{if } \agentSlide{ag} \in \posoblivious\\
+		\possarg{v}{\agentSlide{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agentSlide{ag}}} \trfunc( \defemph{a}, \poss{w}) & \text{if }\agentSlide{ag} \in \posfull\\
+		\possarg{v}{\agentSlide{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agentSlide{ag}}} (\trfunc( \defemph{a}, \poss{w}) \cup \trfunc( \neg\defemph{a}, \poss{w})) & \text{if }\agentSlide{ag} \in \pospartial
+		\end{cases}$
+	\end{block}
+	
+\end{frame}
+
+
+\begin{frame}{Announcement Actions}
+	
+	\begin{block}{$\trfunc$ for Announcement Actions \hfill $\trfunc: \ai\times\Sigma \rightarrow \Sigma \cup \bra{\emptyset}$}
+		
+		Let \texttt{a} be an \emphSlide{announcement action} instance, and \poss{u} a \pos.\\
+		\vspace{0.2cm}
+		\begin{tabular}{rl}
+			$\trfunc(\texttt{a}, \poss{u}) =  \emptyset$ &if \texttt{a} is not executable in \poss{u}\\
+			$\trfunc( \texttt{a}, \poss{u}) = \poss{v}$& if the fluent formula \ttSlide{$\phi$} is \emphSlide{announced}\\
+		\end{tabular}
+		
+		\vspace{0.65cm}
+		Where \poss{v} is\\
+		\vspace{0.2cm}
+		$\begin{cases}
+	\emptyset & \text{if } \poss{u} \not \models \phi\\
+		\possarg{v}{\agentSlide{ag}} = \possarg{u}{\agentSlide{ag}}                                                                                                   & \text{if } \agentSlide{ag} \in \posoblivious\\
+		\possarg{v}{\agentSlide{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agentSlide{ag}}} \trfunc( \defemph{a}, \poss{w}) & \text{if }\agentSlide{ag} \in \posfull\\
+		\possarg{v}{\agentSlide{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agentSlide{ag}}} (\trfunc( \defemph{a}, \poss{w}) \cup \trfunc( \neg\defemph{a}, \poss{w})) & \text{if }\agentSlide{ag} \in \pospartial
+		\end{cases}$
+	\end{block}
+	
+\end{frame}

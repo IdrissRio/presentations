@@ -1,0 +1,37 @@
+\section*{Backup Slides}
+\begin{frame}[noframenumbering]{Side to side Execution}
+	\begin{center}
+		\begin{figure}%[H]
+				\begin{subfigure}{0.5\textwidth}
+					\hspace*{-0.6cm}\scalebox{.5}%
+					{%
+						\raisebox{0.5cm}{
+							\only<1>{\input{img/appendix/initial_state_kripke}}
+							\only<2>{\input{img/appendix/distract_state_kripke}}
+							\only<3>{\input{img/appendix/open_state_kripke}}
+							\only<4>{\input{img/appendix/peek_state_kripke}}
+						}%
+					}%
+				\end{subfigure}%
+				\begin{subfigure}{0.5\textwidth}
+					\hspace*{0.6cm}\scalebox{0.6}%
+					{%
+						%	\raisebox{1.5cm}{
+						\only<1>{\input{img/appendix/initial_state_soe}}
+						\only<2>{\input{img/appendix/distract_state_soe}}
+						\only<3>{\input{img/appendix/open_state_soe}}
+						\only<4>{\input{img/appendix/peek_state_soe}}
+						%	}%
+					}%
+				\end{subfigure}
+			\end{figure}%
+			\end{center}
+	%	\begin{center}
+			\only<1>{\hfill {\footnotesize{where \agentSlide{ag} $\in \bra{\agentSlide{A}, \agentSlide{B}, \agentSlide{C}}$}}\\~\\ \centering The initial state}
+			\only<2>{\hfill {\footnotesize{where \agentSlide{ag} $\in \bra{\agentSlide{A}, \agentSlide{B}, \agentSlide{C}}$}}\\~\\ \centering Execution of \texttt{distract}(\agentSlide{C})$\langle$\agentSlide{A}$\rangle$}
+			\only<3>{\hfill {\footnotesize{where \agentSlide{ag} $\in \bra{\agentSlide{A}, \agentSlide{B}}$}}\\~\\ \centering Execution of \texttt{open}$\langle$\agentSlide{A}$\rangle$}
+			\only<4>{\hfill {\footnotesize{where \agentSlide{ag} $\in \bra{\agentSlide{A}, \agentSlide{B}}$}}\\~\\ \centering Execution of \texttt{peek}$\langle$\agentSlide{A}$\rangle$}
+	%	\end{center}
+		
+
+\end{frame}

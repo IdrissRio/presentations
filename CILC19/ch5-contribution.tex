@@ -1,0 +1,276 @@
+%In this section we introduce \ourL, an action language based on \mAL that, in our opinion, is the most complete action language for epistemic planning in multi-agent domain.\\
+		
+The research on \mAGep\ domain, both in logic and planning, already comprehends several theoretical studies~\cite{fagin1994reasoning,moore1981reasoning,gerbrandy1999bisimulations,van2008handbook,van1997complete,van2007dynamic,baral2015action,aucher2013undecidability,bolander2015complexity,van2004dynamic} and also a variety of solvers~\cite{kominis2015beliefs,huang2017general,muise2015planning,wan2015complete,liu2018multi,le2018efp} even if, at the best of our knowledge, only~\cite{le2018efp,van2004dynamic} can reason without limitations on domains described by \lagC. 
+	
+%Given the complexity %(Table~\ref{table:complexity})
+%that lies behind reasoning in these domains, it is clear that 
+Anyway \mAGep\ solvers still have to reason on domains where the number of fluents and/or agents is limited.
+This is to reduce the length of the planning problems solution that otherwise would require an  excessive quantity of resources (\ie time and memory).
+For these reasons the demand of computational resources needed (for example in respect to classical planning) is one of the central problem in \mep.
+	
+To reduce this gap several approaches can be used:
+\begin{enumerate*}[label=\roman*)]
+	\item as in~\cite{kominis2015beliefs,huang2017general,muise2015planning,wan2015complete} the planning domain can be limited to a less expressive class of problems.
+	
+	On the other hand, when generality is required, \item heuristics can effectively reduce the resolution process, as shown in~\cite{le2018efp}.
+	
+	Finally another approach to follow could be \item to consider alternative representations to Kripke structures; this is what \ourL\ tries to do.
+\end{enumerate*} 
+	
+Changing the structure is especially important because different state representation can lead to a better use of the resources, and to exploit properties of the new structure to introduce important functionalities; \eg \ourL\ could rely on the concept of \emph{bisimulation} to introduce the notion of \emph{visited states}, being bisimulation an equality criteria for \nwf\ sets.% \mep\ can be tackled from a different prospective\footnote{In the case of \ourL\ we use a set theoretical approach that introduces the epistemic planning problem to set operations.} and properties of the new structure can be exploited to introduce important functionalities; \eg \ourL\ could rely on the concept of \emph{bisimulation} to introduce the notion of \emph{visited states}, being bisimulation an equality criteria for \nwf\ sets.
+	
+%\ourL, as already said, is based on \mAL. The difference is in how a state is defined: in fact in \mAL\ a state is represented as Kripke structure while in \ourL\ a state is a \pos\ (for simplicity, we use the same syntax of \mAL).
+%
+%
+%
+\subsection{State} \label{subsec-contribution:state}
+\FloatBarrier
+
+	As main contribution we introduce a modified version of \mAL, called \ourL. The difference is in how a state is defined: in \mAL\ a state is represented as a Kripke structure while in \ourL\ a state is a \pos\ (\S~\ref{subsec-possibilities:possibilities}). For simplicity, we maintain the syntax used in \mAL.% where a state of the \mep\ problem is represented trough a \pos\ .
+	
+	The strict connection of these two structures is highlighted in~\cite{gerbrandy1999bisimulations} from the fact that a solution to a system of equations for \posS\ (Definition~\ref{def:soe_poss}) represents a decoration for a labeled graph, which is essentially a Kripke model.
+	In~\cite{gerbrandy1999bisimulations}, it is also expressed that a \textquotedblleft \pos\ corresponds with a whole class of bisimilar, but structurally different, Kripke models". 
+%	As is not clear what state equality in \mep\ is we leave the formal investigation of whether this structural difference is meaningful in \mep\ as future work.\\ 
+	
+	Let us define the usage of \posS\ as states in a \mep\ domain where the set of agents is \sAG\ and the set of fluents is \sF.
+	A \pos\ %, in the sense of Definition~\ref{def:pos},
+	is a function that assigns to each propositional variable $\defemph{f} \in \sF$ a truth value $\possarg{u}{\defemph{f}} \in \bra{0,1}$ and to each agent $\agent{ag} \in \sAG$ a set of \posS\ $\possarg{u}{\agent{ag}}$.
+	
+	A state in \mep\ has to encode the truth value of the fluents, as in classical planning, and also the beliefs of the agents about fluents and beliefs themselves.
+	%In particular an agent that cannot distinguish which world is the real has.
+	We defined in \S~\ref{sec:mal} how Kripke structures represent these information.
+	In Figure~\ref{fig:state_as_pos} we use a \pos\ as a system of equations to encode a state (of the domain in Example~\ref{ex:coin_box}).
+	
+	An equation is represented in the form $\poss{u} = \bra{(\agent{ag_1}, \sigma), (\agent{ag_2}, \sigma^\prime), \dots ,\defemph{f}, \defemph{f}^\prime , \dots}$ where \agent{ag_1}, \agent{ag_2} $\in \sAG$, $\sigma, \sigma^\prime$ are sets of \posS\ and $\defemph{f}, \defemph{f}^\prime \in \sF$.
+	When we write $ (\agent{ag}, \sigma)$ we mean that, in \poss{u}, the agent \agent{ag} believes that the \posS\ in $\sigma$ are plausible.
+	On the other hand only if a fluent $\defemph{f}$ is present in the equation this means that the fluent itself is true in \poss{u}.
+	\begin{figure}
+		\centering
+	%	\hspace*{-4cm}
+		\subfloat[System of equations for \posS.]
+		{%
+			\scalebox{.8}%
+			{%
+				\raisebox{1.5cm}{
+					\input{img/pos_open_state_soe}
+				}%
+			}%
+			\label{subfig-state_as_pos:1}
+		}%
+		%\hspace*{.5cm}
+		\subfloat[Decoration of the pointed labeled graph $(\graphG, \poss{w})$.]
+		{% 
+			\scalebox{0.7}%
+			{%
+				\raisebox{0cm}{
+					\input{img/pos_open_state_lgraph_big}
+				}%
+			}%
+			\label{subfig-state_as_pos:2}%
+		}
+		\caption{Representation of the possibility \poss{w} after the execution of the actions \distract{C}{A};\open{A} on the initial state of Example~\ref{ex:coin_box}. The \pos\ is expanded to its system of equation for clarity.}
+		\label{fig:state_as_pos}
+	\end{figure}%
+%	
+
+	It is clear that a \pos\ correspond to a decoration of a pointed labeled graph and therefore to a unique Kripke model up to bisimulation.
+	The representation through \posS\ allows, in our opinion, a more clear and concise view of the state. That is because each state is represented by a single \pos;
+	\eg Figure~\ref{fig:state_as_pos} is represented by \poss{w}= \bra{(\agent{ag},\bra{\poss{w}, \poss{w^\prime}}),(\agent{c},\bra{\poss{v}, \poss{v^\prime}}),\looking{ag},\haskey{a},\opened} where \agent{ag} $\in \bra{\agent{A}, \agent{B}}$.
+%
+%
+%
+\FloatBarrier
+\subsection{State equality through Bisimulation} \label{subsec-contribution:bisim}
+\FloatBarrier
+
+	One of the reasons we chose to use \posS\ as states is to exploit this new structure to introduce new functionalities to \mep.
+	In fact having the states described as \posS, which are strongly related to \nwf\ sets, help us to introduce the concept of \emph{visited states}, a core idea in planning.
+	
+	As said before, a \pos\ in the sense of decoration, represents all the Kripke structures bisimilar to the decoration itself.
+	This means that with \posS\ we can exploit bisimulation to capture the idea of equality between states.
+	In fact, given two bisimilar decorations (or labeled graphs), these, even with structural differences, are represented by the same \pos.
+	On the other hand this is not true when it comes to Kripke structures.
+	This idea is best described through  graphical representation; therefore we will use Figure~\ref{fig:equality} to explain this concept.
+	
+	As an example, let us introduce two  new actions: \flip{} and \tell{ag}{}.
+	The first one is an ontic action, where an agent inverts the position of the coin; the observability of this action depends on the fluents \texttt{looking}.
+	On the other hand, \tell{ag}{} means that an agent announces to \agent{ag} the position in which she thinks the coin lies while all the other agents are oblivious.
+	
+	Assuming that the coin lies tails up and given a sequence of action instances $\Delta = \peek{B};\distract{B}{C};\flip{C};\tell{B}{C}$\footnote{We recall that in \cite{baral2015action} an action instance is represented as $\mathtt{action}\tuple{\agent{ag}}$ where \agent{ag} is the agent that executes $\mathtt{action}$.} we show in Figure~\ref{subfig-complete:equality} the result of applying $\Delta$ in a slightly modified initial state of Example~\ref{ex:coin_box} where $\C_{\bra{A,B,C}}$(\opened\ $\wedge \neg \looking{A}$).
+	In Figure~\ref{subfig-reduced:equality}, it is represented a Kripke structure that has structural differences in respect to the one in Figure~\ref{subfig-complete:equality}. This means that these two Kripke structures represent two different states in \mAL\ even if they are intuitively the same.
+	On the contrary, if we think in term of \posS, both the Kripke structures of Figure~\ref{fig:equality} are represented by \pos\ \input{img/equality_soe}
+	
+	\begin{figure}
+		\centering
+		\subfloat[The resulting Kripke structure after the execution of $\Delta$.]{\scalebox{.4}{\input{img/equality1_corr}}\label{subfig-complete:equality}}
+		\hfill
+		\subfloat[A Kripke structure bisimilar to the one in Figure~\ref{subfig-complete:equality}.]{\scalebox{0.4}{\input{img/equality2}}\label{subfig-reduced:equality}}
+		%
+		%\subfloat[Alternative Pictures of Von Neumann ordinals 2 and 3.]{\scalebox{1}{\input{img/equality_soe}}\label{subfig-soe:equality}}
+		%
+		\caption{Bisimilar Kripke Structures.}
+		\label{fig:equality}
+	\end{figure}
+        %Even if it is not clear whether two different \posS\ may encode the same epistemic properties (we leave this problem for future works) t
+        Thanks to the use
+        of \posS\ we can capture bisimilar decoration while the same were considered different in \mAL\ and, therefore, check if a state has already been visited. 
+%	It also interesting to notice that, since \posS\ are described in a set-based environment, operations on sets
+	%, as we will see in \S~\ref{subsec-contribution:transfunc},
+%	can be exploited to define the concept of update.
+	Next we define the concept of entailment and finally the transition function in \ourL.
+%
+%
+%
+\FloatBarrier
+\subsection{Entailment} \label{subsec-contribution:entail}
+	
+%	We firstly give a definition of entailment that resemble the one of \mAL\ (\S~\ref{sec:mal}); the difference lies, as said before, in the fact that \mAL\ bases its entailment on Kripke structures while \ourL\ defines its on \posS.
+	%The concept of entailment also connected to the axiomatization proposed in Subsection 4.4 of~\cite{gerbrandy1999bisimulations}.
+	
+	We now %first of all 
+	introduce the
+	concept of entailment w.r.t. \posS.
+	% (in the sense of Definition~\ref{def:fluent_formula}).
+	
+		\begin{definition}[entailment w.r.t. \posS]\label{def:poss_truth_fluent}
+		Given the belief formulae
+	$\varphi,\varphi_{1},\varphi_{2}$, a fluent \defemph{f}, an agent \agent{ag}, a group of agents $\alpha$, and a \pos\ \poss{u}:
+		\begin{enumerate}[label= \emph{(}\roman*\emph{)}]
+			\item $\poss{u} \models \defemph{f}$ if $\possarg{u}{\defemph{f}}= 1$;
+		%	\item $\poss{u} \models \neg \defemph{f}$ if $\possarg{u}{\defemph{f}} = 0$;
+			\item $\poss{u} \models \neg \phi$ if $\poss{u} \not \models \phi$;
+			\item $\poss{u} \models \phi_1 \vee \phi_2$ if $\poss{u} \models
+			\phi_1$ or $\poss{u} \models \phi_2$;
+			\item $\poss{u} \models \phi_1 \wedge \phi_2$ if $\poss{u} \models
+			\phi_1$ and $\poss{u} \models \phi_2$.
+	%		\item $\poss{u} \models \varphi$ accordingly to \emph{Definition~\ref{def:poss_truth_fluent}} if $\varphi$ is a fluent formula;
+			\item $\poss{u} \models \bB{ag}{\varphi}$ if for each $\poss{v} \in \possarg{u}{\agent{ag}}$, $\poss{v} \models \varphi$;%\footnote{The transitive closure is assured by the fact that when we reason with beliefs we guarantee that $\forall \varphi, \psi\in \lagC:
+			%	M \models ( \bB{ag}{\varphi} \wedge  \bB{ag}{(\varphi \implies \psi)})
+			%	\implies \bB{ag}{\psi}$ (what is called property \textbf{K} in Kripke structures).};
+			\item $\poss{u} \models \neg \varphi$ if $\poss{u} \not\models \varphi$;
+			\item $\poss{u} \models \varphi_1 \vee \varphi_2$ if $\poss{u} \models \varphi_1$ or $\poss{u}\models \varphi_2$;
+			\item $\poss{u} \models \varphi_1 \wedge \varphi_2$ if $\poss{u} \models \varphi_1$ and $\poss{u}\models \varphi_2$;
+			\item $\poss{u} \models \eAlpha{\varphi}$ if $\poss{u} \models
+			\bB{ag}{\varphi}$ for all $\agent{ag} \in \alpha$;
+%			\item[\emph{(}xi$^*$\emph{)}] $\poss{u} \models \eAlpha{\varphi}$ if $\bigcup_{\agent{ag} \in \alpha} \possarg{u}{\agent{ag}} \models \varphi$;
+			\item $\poss{u} \models \cAlpha{\varphi}$ if
+			$\poss{u} \models \eAlphaIter{k}{\varphi}$ for every
+			$k\geq0$, where $\eAlphaIter{0}{\varphi} = \varphi$ and
+			$\eAlphaIter{k+1}{\varphi}=\eAlpha{(\eAlphaIter{k}{\varphi})}$.
+		\end{enumerate}
+	\end{definition}
+
+	%The operator \E\ can be restated through the set operation $\cup$:
+%	\todo{Ask to prof} As the correctness and completeness of this transition function is not yet demonstrated we just present the description of the function with a brief comment on the intuition that lies behind it.
+%
+%
+%
+\subsection{Transition function} \label{subsec-contribution:transfunc}
+	Finally we introduce the transition function for \ourL.
+	%The transition function is based on the concept of corecursion as expressed in Subsection~1.2 of~\cite{gerbrandy1999bisimulations}. In fact, as we said in \S~\ref{subsec-possibilities:possibilities}, the class of all the \posS\ is the largest fixed point of the operator introduced in Page~\pageref{page:set_op}.
+	In defining this transition function we made some assumptions:
+	\begin{enumerate*}[label=\roman*)]
+		\item we consider that the given initial state also specifies which world is the pointed one (as said in~\cite{baral2015action}), this allow us to relax the description of $\Phi$ in the case of announcements or sensing actions.
+
+		Moreover \item we do not take into consideration the case in which an agent can have \emph{false beliefs}\footnote{An agent \agent{ag} has a false belief about $\varphi$ in state \defemph{s} if \defemph{s} $\models \varphi$ and \defemph{s} $\models \bB{ag}{\neg \varphi}$.} because is still an open question how to deal with them in \mep; we will try to address this problem in future works.
+	\end{enumerate*} 
+	The transition function relative to the domain \emph{D} is $\trfunc: \ai\times\Sigma \rightarrow \Sigma \cup \bra{\emptyset}$ where $\Sigma$ is the set of all the \posS.
+	
+	For the sake of readability, the abbreviations used in the following definition are explained at the end of it.
+	\begin{definition}[transition function for \ourL]
+		Let \defemph{a} $\in \ai$, and a \pos\ \poss{u} be given.
+		If \defemph{a} is not executable in \poss{u} then\ $\trfunc(\defemph{a}, \poss{u}) =  \emptyset$
+		otherwise if \defemph{a} is executable in \poss{u} :
+		\begin{itemize}
+			\item $\trfunc( \defemph{a}, \poss{u}) = \poss{v} \text{ if \defemph{a} is an ontic action instance and }$\\
+			%	\begin{itemize}
+			%	\item
+				$\begin{cases}
+					\possarg{v}{\defemph{f}} = \possarg{u}{\defemph{f}} &\text{ if } \defemph{f} \neq \res{a}\\
+					\possarg{v}{\defemph{f}} = \res{a} &\text{ if } \defemph{f} = \res{a}
+					%\res a &\text{ if } \defemph{f} \in \res{a}
+				\end{cases}$
+				\vspace*{0.1cm}
+				\\and
+				\vspace*{0.1cm}
+				\\
+				$\begin{cases}
+					\possarg{v}{\agent{ag}} = \possarg{u}{\agent{ag}} &\text{ if } \agent{ag} \in \posoblivious\\
+					\possarg{v}{\agent{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agent{ag}}} \trfunc( \defemph{a}, \poss{w}) &\text{ if } \agent{ag} \in \posfull			
+				\end{cases}$
+				\vspace*{0.3cm}
+			%	\end{itemize}
+			\item $\trfunc( \defemph{a}, \poss{u}) = \poss{v} \text{ if \defemph{a} sensed the fluent \defemph{f} }$\\
+			%	\begin{itemize}
+				%	\item
+				$\begin{cases}
+							%\trfunc( \defemph{a}, \poss{v}) \text{ s.t. } \poss{v} \in \possarg{u}{\agent{ag}} &\text{ if } \sensed{a}{f} \neq \possarg{u}{\defemph{f}}\\
+					\emptyset &\text{ if } \sensed{a}{f} \neq \possarg{u}{\defemph{f}}\\
+					\possarg{v}{\agent{ag}} = \possarg{u}{\agent{ag}} &\text{ if } \agent{ag} \in \posoblivious \text{ and } \sensed{a}{f} = \possarg{u}{\defemph{f}}\\
+					\possarg{v}{\agent{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agent{ag}}} \trfunc( \defemph{a}, \poss{w}) &\text{ if }\agent{ag} \in \posfull \text{ and } \sensed{a}{f} = \possarg{u}{\defemph{f}}\\
+					\possarg{v}{\agent{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agent{ag}}} (\trfunc( \defemph{a}, \poss{w}) \cup \trfunc( \neg\defemph{a}, \poss{w})) &\text{ if }\agent{ag} \in \pospartial \text{ and } \sensed{a}{f} = \possarg{u}{\defemph{f}}
+				\end{cases}$
+				\vspace*{0.3cm}
+			%	\end{itemize}
+			\item $\trfunc( \defemph{a}, \poss{u}) = \poss{v} \text{ if \defemph{a} announces the fluent formula $\phi$ }$\\
+			%	\begin{itemize}
+			%		\item
+				$\begin{cases}
+					%\trfunc( \defemph{a}, \poss{v}) \text{ s.t. } \poss{v} \in \possarg{u}{\agent{ag}} &\text{ if } \sensed{a}{f} \neq \possarg{u}{\defemph{f}}\\
+					\emptyset &\text{ if } \poss{u} \not \models \phi\\
+					\possarg{v}{\agent{ag}} = \possarg{u}{\agent{ag}} &\text{ if } \agent{ag} \in \posoblivious \text{ and } \poss{u} \models \phi\\
+					\possarg{v}{\agent{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agent{ag}}} \trfunc( \defemph{a}, \poss{w}) &\text{ if } \agent{ag} \in \posfull \text{ and } \poss{u} \models \phi\\
+					\possarg{v}{\agent{ag}} = \bigcup_{\poss{w} \in \possarg{u}{\agent{ag}}} (\trfunc( \defemph{a}, \poss{w}) \cup \trfunc( \neg\defemph{a}, \poss{w})) &\text{ if }\agent{ag} \in \pospartial \text{ and } \poss{u} \models \phi
+				\end{cases}$
+			%	\end{itemize}
+		\end{itemize}
+			
+	\end{definition}
+	{\footnotesize 
+		where:
+	\begin{itemize}
+		\item \res{a} is the fluent modified by the action instance \defemph{a};
+		
+		\item \posfull, \pospartial, \posoblivious\ identify the fully observant, partially observant and oblivious agents respectively;
+			
+		\item \sensed{a}{f} represents the truth value of the fluent \defemph{f} determined by \defemph{a} = \possarg{u}{\defemph{f}};
+			
+		\item $\neg\defemph{a}$ describes the action that senses the opposite of \defemph{a}; namely \sensed{a}{\neg f}.
+	\end{itemize}}
+%
+Note that sensing and announcement actions generate the empty set when the action effects do not respect the fluents truth values of the possibility where the action is executed. That is because epistemic action (\ie announcement or sensing) cannot change the state of the world but only the beliefs of the agent.
+
+As example we present the execution of the sequence \distract{C}{A}; \open{A} on the initial state of Example~\ref{ex:coin_box} encoded by the \pos\ \poss{u} in Figure~\ref{subfig-our_tra_func:initial}.
+	\begin{figure}
+		\centering
+		\subfloat[The initial state \poss{u}.]
+		{% 
+			\scalebox{0.95}%
+			{%
+					\input{img/initial_state_soe_trfunc}
+			}%
+			\label{subfig-our_tra_func:initial}%
+		}
+		\subfloat[The state \poss{v} after executing \distract{C}{A}.]
+		{%
+			\scalebox{0.95}%
+			{%
+				\input{img/distract_state_soe_trfunc}
+			}%
+			\label{subfig-our_tra_func:distract}%
+		}
+			\hfill	
+		\subfloat[The state \poss{w} after executing \distract{C}{A};\open{a}.]
+		{%
+			\scalebox{0.95}%
+			{%
+			
+					\input{img/open_state_soe_trfunc}
+			}%
+			\label{subfig-our_tra_func:open}%
+		}
+		\caption{Execution of \distract{C}{A};\open{A} in Example~\ref{ex:coin_box} (\agent{ag} $\in \bra{\agent{a}, \agent{b}, \agent{c}}$).}
+		\label{fig:our_tra_func}
+	\end{figure}%
+
+

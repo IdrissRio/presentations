@@ -1,0 +1,185 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%-------------------------------------------------------
+% THEME SETTINGS
+%-------------------------------------------------------
+\usetheme[progressstyle=movingCircCnt]{Feather}
+\setbeamercolor{Feather}{fg=black!30,bg=black}
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{block body example}{bg=black!5!white}
+\setbeamercolor{block title example}{fg=white,bg=black!40!white}
+
+\usepackage[backend=bibtex,style=alphabetic,citestyle=alphabetic-verb]{biblatex}
+\usepackage{xpatch}
+\usepackage{subcaption}
+\usepackage{hhline}
+\usepackage{xcolor}
+\usepackage{todonotes}
+\usepackage[all]{foreign}
+\usetikzlibrary{calc}
+\usepackage{adjustbox}
+\usepackage{transparent}
+\usetikzlibrary{arrows.meta, calc, quotes, tikzmark}
+
+
+\makeatletter
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}}}
+\renewcommand\@makefntext[1]{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}\usebeamerfont*{footnote} #1}
+\makeatother
+
+%Modify the Title display on frame
+\makeatletter
+\patchcmd\beamer@@tmpl@frametitle{\insertframetitle}{{\footnotesize \insertsection~\emphColorSlide{\insertsubsection}~\\} \textbf{\insertframetitle}}{}{}
+\makeatother
+%Add space to the footline
+\makeatletter
+\patchcmd{\beamer@calculateheadfoot}{\advance\footheight by 4pt}{\advance\footheight by 8pt}{}{}
+\makeatother
+
+%NO HEAD LINE
+\makeatletter
+\newenvironment{noheadline}{
+	\setbeamertemplate{headline}[default] {}
+	\setfootline
+}{}
+\makeatother
+
+%Slide with  Section title
+\AtBeginSection[]{
+	\begin{noheadline}
+		\showCILC{true}{\begin{frame}[noframenumbering]
+			\begin{center}
+				\large Chapter \thesection \\
+				\vspace*{1cm}
+				\centering {\usebeamerfont{title} \huge\textcolor{black}{\insertsectionhead}}
+				\vspace*{1cm}
+			\end{center}
+		\end{frame}}
+	\end{noheadline}
+}
+
+
+\newcommand{\setfootline}{
+	\setbeamercolor{footline}{fg=white,bg=black}
+	\setbeamertemplate{footline}{%
+		\begin{beamercolorbox}[wd=1.0\paperwidth,left,ht=2.5ex,dp=1ex]{footline}
+			\usebeamerfont{section in head/foot}%
+			\hspace*{3.5ex}%
+			\insertshortauthor\ |\ 
+			\insertshorttitle
+			\insertshortsubtitle
+		\end{beamercolorbox}
+	}
+	\addtobeamertemplate{footline}{%
+		\setlength\unitlength{1ex}%
+		\begin{picture}(0,0) 
+		\put(125,2.5){\makebox(0,0)[bl]{
+			\includegraphics[scale=0.15]{img/gulp.png}
+	}}%
+		\end{picture}%
+	}{}
+}
+
+
+\DeclareCiteCommand{\footpartcite}[\mkbibfootnote]
+{\usebibmacro{prenote}}
+{\usebibmacro{citeindex}%
+	%\mkbibbrackets{\usebibmacro{cite}}%
+	%\setunit{\addnbspace}
+	\printnames{labelname}%
+	\setunit{\labelnamepunct}
+	\printfield[citetitle]{title}%
+	\newunit
+	\printfield{year}}
+{\addsemicolon\space}
+{\usebibmacro{postnote}}
+
+\bibliography{../Bibliography.bib}
+\input{../macros.tex}
+
+%-------------------------------------------------------
+% INFORMATION IN THE TITLE PAGE
+%-------------------------------------------------------
+
+\title[] % [] is optional - is placed on the bottom of the sidebar on every slide
+{ % is placed on the title page
+	\textbf{
+		NON-WELL-FOUNDED SET BASED MULTI-AGENT EPISTEMIC ACTION LANGUAGE}
+}
+
+\subtitle[{\color{ForestGreen}\textbf{CILC}}]
+{
+	{\color{ForestGreen} $\mathbf{34^{th}}$ \textbf{Italian Conference on Computational Logic}}
+}
+
+\author[\textbf{Francesco Fabiano}, Idriss Riouak, Agostino Dovier and Enrico Pontelli]
+{ \textbf{Francesco Fabiano}, Idriss Riouak,\\ Agostino Dovier and Enrico Pontelli }
+
+\institute[]
+{\vspace{1cm}
+	\textbf{University of Udine}\\
+	\textbf{Department of Mathematics, Computer Science and Physics} \\
+}
+
+\date{\today}
+
+
+
+\begin{document}
+\setfootline
+%-------------------------------------------------------
+% THE TITLEPAGE
+%-------------------------------------------------------
+
+{\1
+	\showCILC{true}{\begin{frame}[plain,noframenumbering]
+		\titlepage
+	\end{frame}}}
+
+%-------------------------------------------------------
+% BODY
+%-------------------------------------------------------
+\showCILC{true}{\begin{frame}{Overview}
+	\setbeamertemplate{section in toc}[sections numbered]
+	\setbeamertemplate{subsection in toc}{ b 
+		$\ \ \ \ \ \bullet$ \inserttocsubsection \par}
+	\tableofcontents
+\end{frame}}
+
+
+
+
+\section{Multi-Agent Epistemic Planning}
+\input{ch1_mep.tex}
+%\section{Epistemic Operators}
+\section{Kripke Structures}
+\input{ch2_kripke.tex}
+\section{\PosS}
+\input{ch3_possibilities.tex}
+\section{The action language \ourL}
+\input{ch5_contribution.tex}
+%\section{Example}
+\section{Conclusions}
+\input{conclusions}
+
+%No page Numbering
+\setbeamercolor{headline}{fg=white,bg=black}
+\setbeamertemplate{headline}{
+	\begin{beamercolorbox}[wd=1.0\paperwidth,left,ht=38pt,dp=1ex]{headline}
+	\end{beamercolorbox}
+	\vspace*{2.3pt}
+	\color{black!30!white}\rule{\paperwidth}{2pt}
+}
+
+%BIBLIOGRAPHY
+
+
+\showCILC{true}{\begin{frame}[allowframebreaks,noframenumbering]{References}
+	\printbibliography
+\end{frame}}
+
+\appendix
+
+\input{chLast_appendix.tex}
+
+
+\end{document}

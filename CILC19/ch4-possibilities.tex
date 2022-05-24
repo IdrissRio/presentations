@@ -1,0 +1,131 @@
+	This section defines the concept of \emph{\pos}\ (originally introduced
+        in~\cite{Gerbrandy1997}), based on \nwf\ set theory.
+	This section aims to provide the reader with enough information to understand what \posS\ are.
+	
+	For a more informative introduction the reader is addressed to~\cite{gerbrandy1999bisimulations,Aczel1989-ACZNS-2,barwise1987liar} and to~\cite{DBLP:conf/iclp/Dovier15} for a logic programming point of view on
+	\nwf\ sets and their equivalence.
+%	Familiarity with set and graph theory is assumed.
+	%
+	%
+	\subsection{\Nwf\ set theory fundamentals}\label{subsec-possibilities:set_th}
+	We start by giving some fundamental definitions of \nwf\ set theory.
+	First of all a \emph{\wf}\ \emph{set} is described in~\cite{Aczel1989-ACZNS-2} as follows:
+	\begin{definition}[\wf\ set]\label{def:wfs}
+		Let $E$ be a set, $E^\prime$ one of its elements, $E^{\prime\prime}$ any element of $E^\prime$, and so on. A descent is the sequence of steps from $E$ to $E^\prime$, $E^\prime$ to $E^{\prime\prime}$, etc. $\dots$\ A set is 
+		\emph{\wf}\ (or \emph{ordinary}) when it only gives rise to finite descents.
+		%; and it is
+		%\nwf\ (or extraordinary) when among its descents there are some which are infinite.
+	\end{definition}
+	%
+	\Wf\ set theory states that all the sets in the sense of Definition~\ref{def:wfs} can be represented in the form of graphs, called \emph{pictures}, (as shown in Figure~\ref{fig:von_neu_ord}).
+	%
+	\begin{figure}
+		\centering
+		\subfloat[Pictures of von Neumann ordinals where 
+		$0=\emptyset$;
+		$1=\bra{\emptyset}$;
+		$2=\bra{\emptyset, \bra{\emptyset}}$;
+		$3=\bra{\emptyset,\bra{\emptyset},\bra{\emptyset,\bra{\emptyset}}}$.]{\scalebox{0.7}{\input{img/vonNeumann}}\label{subfig-1:von_neu_ord}}
+		\hfill
+		\subfloat[Alternative Pictures of von Neumann ordinals 2 and 3.]{\scalebox{0.8}{\input{img/vonNeumann_alternative}}\label{subfig-2:von_neu_ord}}
+		\caption{\Wf\ sets represented through graphs~\cite{Aczel1989-ACZNS-2}.}
+		\label{fig:von_neu_ord}
+	\end{figure}
+	To formalize this concept of \textquoteleft picture of a set' however it is necessary to introduce the concept of \emph{decoration}:
+	%
+	\begin{definition} [decoration and picture]
+		\begin{itemize}
+			\item A \emph{decoration} of a graph \graphVE{V}{E}\ is a function $\delta$ that assigns to each node $\defemph{n} \in V$\ a set $\delta_\defemph{n}$ in such a way that the elements of $\delta_\defemph{n}$ are exactly the sets assigned to successors of \defemph{n}, \ie $\delta_\defemph{n} = \{\delta_\defemph{n^{\prime}} \mid (\defemph{n},\defemph{n}^\prime) \in E\}$.
+		
+			\item If $\delta$ is a decoration of a pointed graph $(\graphG, \defemph{n})$, then $(\graphG, \defemph{n})$ is a \emph{picture} of the set $\delta_\defemph{n}$.
+		\end{itemize}
+	\end{definition}
+	%
+	Moreover, in well-founded set theory, it holds the Mostovski's lemma: \textquotedblleft each \wf\ graph\footnote{A \wf\ graph is a graph that doesn't contain an infinite path $\defemph{n} \rightarrow \defemph{n}^{\prime} \rightarrow \defemph{n}^{\prime\prime} \rightarrow \dots$ of successors.} is a picture of exactly one set".
+
+	
+	On the other hand in~\cite{Aczel1989-ACZNS-2} a \emph{\nwf}, or \emph{extraordinary set} in the sense of Mirimanoff, is a set that respects Definition~\ref{def:nwfs}.
+	\begin{definition}[\nwf\ set]\label{def:nwfs}
+		A set is \emph{\nwf}\ (or \emph{extraordinary}) when among its descents there are some which are infinite.
+	\end{definition}
+	%
+	In fact, when the \textbf{Foundation Axiom}\footnote{Expressed in~\cite{gerbrandy1999bisimulations} as \textquotedblleft Only \wf\ graphs have decorations".} is substituted by the \textbf{Anti-Foundation Axiom} (\textbf{AFA}), expressed by Aczel in~\cite{Aczel1989-ACZNS-2} as \textquotedblleft \textit{Every graph has a unique decoration}", the following consequences become true:
+	\begin{itemize}
+		%\item Every pointed graph is a picture of a unique set;
+			\item Every graph is a picture of exactly one set (\textbf{AFA} as is formulated in~\cite{gerbrandy1999bisimulations});
+		\item \nwf\ sets exist given that a \nwf\ pointed graph has to be a picture of a \nwf\ set.
+		%\item every graph is a picture of exactly one set (\textbf{AFA} as is formulated in~\cite{gerbrandy1999bisimulations}).
+	\end{itemize}
+	%
+	\begin{figure}
+		\centering
+		\subfloat[Standard picture $\Omega$.]{\scalebox{0.6}{\input{img/omega}}\label{subfig-omega_nwf:1}}
+		\hfill
+		\subfloat[Unfolding of the picture of $\Omega$.]{\scalebox{1}{\input{img/omega_alternative}}\label{subfig-omega_nwf:2}}
+		\caption{Representation of the \nwf\ set $\Omega = \{\Omega\}$~\cite{Aczel1989-ACZNS-2}.}
+		\label{fig:omega_nwf}
+	\end{figure}
+
+
+%We can now reformulate \textbf{AFA} as in~\cite{gerbrandy1999bisimulations} to
+%	\subsection{Systems of Equations}
+%	\Nwf\ sets, as said in \S~\ref{subsec-possibilities:set_th}, can be represented by \nwf\ graphs.
+	In~\cite{Aczel1989-ACZNS-2,gerbrandy1999bisimulations} it is pointed out how \nwf\ sets can also be expressed through systems of equations. 
+	This concept will help us to formalize the notion of state in our action language.
+	
+	A quick example of this representation can be derived by the set $\Omega = \{\Omega\}$ (Figure~\ref{fig:omega_nwf}). We can, in fact, informally define this set by the (singleton) system of equations $%\big\{%
+	x = \bra{x}$.
+	%
+	Systems of equations and their solutions are described more formally as follows in~\cite{gerbrandy1999bisimulations}:
+	%
+	\begin{definition}[system of equations]
+		For each class of atoms\footnote{Objects that are not sets and have no further set-theoretic structure.} $\mathcal{X}$ a \emph{system of equation} in $\mathcal{X}$ is a class
+		$\tau$ of equations $\poss{x} = \mathtt{X}$, where $\poss{x} \in \mathcal{X}$ and $\mathtt{X} \subseteq \mathcal{X}$, such that  $\tau$ contains exactly one equation $\poss{x} = \mathtt{X}$ for each $\poss{x} \in \mathcal{X}$. 
+		%that for each $\poss{x} \in \mathcal{X}$ includes exactly one equation of the form $\poss{x} = \mathtt{X}$ where $\mathtt{X} \subseteq \mathcal{X}$.\\
+		A solution to a system of equations $\tau$ is a function $\delta$ that assigns to each $\poss{x} \in \tau(\mathcal{X})$\footnote{$\tau(\mathcal{X})$ denotes the class of atoms $\mathcal{X}$ in which $\tau$ is described.} a set $\delta_\poss{x}$ such that $\delta_\poss{x} = \{ \delta_\defemph{y} \mid \defemph{y} \in \mathtt{X}\}$, where $\poss{x} = \mathtt{X}$ is an equation of $\tau$.
+		If $\delta$ is the solution to a system of equations $\tau$, then the set $\{\delta_\poss{x} \mid \poss{x} \in \tau(\mathcal{X})\}$ is called the solution set of that system.
+	\end{definition}
+	
+	Since both  graphs and systems of equations are representations for \nwf\ sets, it is natural to investigate their relationships.
+	In particular it is interesting to point out how from a graph \graphVE{V}{E} it is possible to construct a system of equations $\tau$ and vice versa.
+	The nodes in $\graphG$, in fact, can be the set of atoms $\tau(\mathcal{X})$ and, for each node $\poss{v} \in V$, an equation  is represented by $ \poss{v} = \{\poss{v}^\prime \mid (\poss{v}, \poss{v}^\prime) \in E\}$.
+	Since each graph has a unique decoration, each system of equations has a unique solution.
+	This is also true when we consider bisimilar systems of equations. In fact we can collapse them into their minimal representation thanks to the concept of \emph{maximum bisimulation} as introduced in~\cite{DBLP:conf/iclp/Dovier15}.
+	Bisimilar labeled graphs (or Kripke structures) have therefore a unique solution as well since we collapse their representations into the minimal one. This idea will be further expanded in Section~\ref{subsec-contribution:bisim}.
+	
+
+	
+	\subsection{\PosS}\label{subsec-possibilities:possibilities}
+	Let us introduce the notion of \pos\, as in~\cite{Gerbrandy1997}:
+	\begin{definition}[\posS]\label{def:pos}
+		Let \sAG\ be a set of agents and \sP\ a set of propositional variables:%The class of \posS\ is the largest class such that:
+		\begin{itemize}
+			\item A \emph{\pos}\ $\poss{u}$ is a function that assigns to each propositional variable $\defemph{f} \in \sP$ a truth value $\possarg{u}{\defemph{f}} \in \bra{0,1}$ and to each agent $\agent{ag} \in \sAG$ an information state $\possarg{u}{\agent{ag}} = \sigma$.
+			\item An \emph{information state} $\sigma$ is a set of \posS.
+		\end{itemize}
+	\end{definition}
+	
+	In Section~\ref{subsec-contribution:state} we will use this concept to describe a \textquoteleft state' of the planning problem.
+	The intuition behind this idea is that a \pos\ \poss{u} is a possible interpretation of the world and of the agents' beliefs; in fact $\possarg{u}{\defemph{f}}$ specifies the truth value of the fluent \defemph{f} in \poss{u} and $\possarg{u}{\agent{a}}$ is the set of all the interpretations the agent \agent{a} considers possible in \poss{u}.
+	
+	Moreover a \pos\ can be pictured as a decoration of a labeled graph and therefore as a unique solution to a system of equations for \posS.
+	A \pos\ represents the solution to the minimal system of equations in which all bisimilar systems of equations are collapsed; that is the \posS\ that represent decorations of bisimilar labeled graphs are bisimilar and can be represented by the minimal one.
+	This shows that the class of bisimilar labeled graphs and, therefore, of bisimilar Kripke structures, used by \mAL\ as states, can be represented by a single \pos. 
+	
+	\begin{definition}[equations for \posS] \label{def:soe_poss}
+		Given a set of agents \sAG\ and a set of propositional variables \sP, a \emph{system of equations for \posS}\ in a class of \posS\ $\mathcal{X}$ is a set of equations such that for each $\poss{x} \in \mathcal{X}$ there exists exactly one equation of the form $\possarg{x}{\defemph{f}} = i$, where $i \in \bra{0,1}$, for each $\defemph{f} \in \sP$, and of the form $\possarg{x}{\agent{ag}} = \mathtt{X}$, where $\mathtt{X} \subseteq \mathcal{X}$, for each $\agent{ag} \in \sAG$.\\
+		A solution to a system of equations for \posS\ is a function $\delta$ that assigns to each atom $\defemph{x}$ a \pos\ $\delta_\poss{x}$ in such a way that if $\possarg{x}{\defemph{f}} = i$ is an equation then $\delta_{\possarg{x}{\defemph{f}}} = i$, and if $\possarg{x}{\agent{ag}} = \sigma$ is an equation, then $\delta_{\possarg{x}{\agent{ag}}} = \bra{\delta_\defemph{y} \mid \defemph{y} \in \sigma}$.
+	\end{definition}
+%
+%	Moreover in~\cite{gerbrandy1999bisimulations} some set based operations on \posS\ are defined . These operations are based on the fact that the class of all \posS\ is the largest fixed point\footnote{The reader is addressed to~\cite{gerbrandy1999bisimulations} for a complete description.} of the set operation $\sPoss(\defemph{\cdot})$:
+%	\begin{equation*}
+%		\label{page:set_op}
+%		\sPoss(S) = \bra{f \mid \text{$f$ is a function } \sP \mapsto \bra{0,1} \cup \sAG \mapsto 2^S}. 
+%		%\sPoss(S) = \bra{f \mid \text{$f$: } \sP \mapsto \bra{0,1}} \cup \bra{f \mid \text{$f$: } \sAG \mapsto 2^S} 
+%	\end{equation*}
+%	
+%	Together with corecursion these operations will be used in \S~\ref{subsec-contribution:transfunc} to define the transition function of our language.\todo{Check page 16,17... With prof to ask why corecursion is used that way and how the pump makes our transition function well-defined.}
+
+%\subsubsection{Bisimulation}
+%
+%

@@ -1,0 +1,104 @@
+\documentclass[runningheads]{utils/llncs}
+%
+\usepackage{graphicx}
+%
+%Ours
+\usepackage[USenglish]{babel}
+\usepackage{etoolbox}
+\usepackage{subfig}
+\usepackage{tikz}
+%\usepackage{footnote}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{hhline}
+\usepackage{cite}
+\usepackage[inline]{enumitem}
+\usepackage[all]{foreign}
+\usepackage{nicefrac}
+\usepackage[section]{placeins}
+\usepackage{adjustbox}
+
+%
+%
+%
+\input{macros}
+\begin{document}
+	%
+	\title{\Nwf\ set based \mAGep\ action language\thanks{This research is partially supported by the Universit\`a di Udine PRID ENCASE project, and by GNCS-INdAM 2017 and 2019 projects.}}
+	%
+	%\titlerunning{Abbreviated paper title}
+	% If the paper title is too long for the running head, you can set
+	% an abbreviated paper title here
+	%
+	\author{Francesco Fabiano\inst{1}%\orcidID{0000-1111-2222-3333}
+		\and Idriss Riouak\inst{1}%\orcidID{1111-2222-3333-4444}
+		\and Agostino Dovier\inst{1}%\orcidID{2222--3333-4444-5555}
+		\and Enrico Pontelli\inst{2}}%\orcidID{3333--4444-5555-6666}
+	%
+	%\authorrunning{F. Fabiano et al.}
+	% First names are abbreviated in the running head.
+	% If there are more than two authors, 'et al.' is used.
+	%
+	\institute{
+		Dipartimento DMIF, Universit\`a di Udine, Udine, Italy\\
+		%
+		%	\email{\{fabiano.francesco001,riouak.idriss\}@spes.uniud.it} \email{agostino.dovier@uniud.it}
+		%	
+		\and	
+		%	
+		Computer Science Department, New Mexico State University, Las Cruces NM, USA\\
+		%
+		%	\email{epontell@cs.nmsu.edu}
+	}
+	%
+	\maketitle              % typeset the header of the contribution
+	%
+	\input{ch0-abstract}
+	%
+	%
+	%
+	\section{Introduction}
+	\input{ch1-introduction}
+	%
+	%
+	%
+	\section{Epistemic reasoning}\label{sec:epistemic_logic}
+	\input{ch2-epistemic_logic}
+	%
+	%
+	%
+	\section{The action language \mAL}\label{sec:mal}
+	\input{ch3-mal}
+	%
+	%
+	%
+	\vspace{-0.0cm}
+	\section{\Nwf\ sets and \PosS}\label{sec:possibilities}
+	\input{ch4-possibilities}
+	%
+	%
+	%
+	\section{The action language \ourL} \label{sec:contribution}
+	\input{ch5-contribution}
+	%
+	%
+	%
+	\section{Conclusions and Future Works} \label{sec:conclusion}
+	\input{ch6-conclusion}
+	%
+	%
+	%
+	%\section{Acknowledgements}
+	%\input{ch7-acknowledgement}
+	%
+	%
+	%
+	\bibliographystyle{utils/splncs04}
+	\bibliography{Bibliography}
+	%
+	%
+	\newpage
+	\appendix
+	\input{chLast-appendix}
+	
+\end{document}

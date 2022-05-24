@@ -1,0 +1,173 @@
+%%%%%%%   KRIPKE STRUCTURES
+\showCILC{true}{
+	\begin{frame}{Description}
+		\vspace{2mm}
+		\showCILC{true}{
+			\onslide<+->{
+			\begin{block}{Pointed Kripke structure}
+			A \emph{Pointed Kripke structure} is a pair (\tuple{S, \pi, \brelSlide{1},$\dots$ , \brelSlide{n}}, $s_0$), s.t.:
+			\begin{itemize}
+				\item[-] $S$ is a set of \emphSlide{worlds} and  $s_0 \in S$
+				\item[-] $\func{\pi}{S}{2^{\sF}}$ associates an \emphSlide{interpretation} to each element of S
+				\item[-] for $1 \leq \defemph{i} \leq \defemph{n}$, $\brelSlide{i} \subseteq S \times S$  is a binary relation over S
+			\end{itemize}
+		\end{block}
+		}
+	}
+		\begin{columns}
+			\onslide<+->{\begin{column}{0.5\textwidth}
+
+					\vspace*{-0.1cm}\hspace*{-0.6cm}\scalebox{0.7} {\input{img/peek_snoopy}}
+
+				\end{column}
+				\begin{column}{0.5\textwidth}
+
+					{\small \vspace*{-1cm}\agentSlide{AG} = \{\agentSlide{Charlie}, \agentSlide{Lucy}, \agentSlide{Snoopy}\}}
+
+					\hspace*{-0.5cm}\includegraphics[width=1\textwidth]{img/goal_state}
+				\end{column}}
+		\end{columns}
+
+	\end{frame}
+}
+
+\showCILC{true}{
+	\begin{frame}{Entailment}
+		Let $\varphi$ be a belief formula and \state{}{s} be a pointed Kripke structure:
+		\begin{block}{Entailment w.r.t. a pointed Kripke structure}
+			\begin{itemize}[<+->]
+				\item[-] $\state{}{s} \models \varphi$ if $\varphi$ is a \emphSlide{fluent formula} and $\pi(\defemph{s})
+					      \models \varphi$;
+				\item[-] $\state{}{s} \models \mathbf{B}_{\agentSlide{ag_i}}\varphi$ if $\forall $ \defemph{t}:
+				      $\defemph{(s,t)} \in \brelSlide{i}$ it holds that\ $ \state{}{t} \models \varphi$;
+				      %\item $\state{}{s} \models \neg \varphi$ if $\state{}{s} \not\models \varphi$;
+				      %\item $\state{}{s} \models \varphi_1 \vee \varphi_2$ if $\state{}{s}\models
+				      %\varphi_1$ or $\state{}{s}\models \varphi_2$;
+				      %\item $\state{}{s} \models \varphi_1 \wedge \varphi_2$ if $\state{}{s}\models
+				      %\varphi_1$ and $\state{}{s}\models \varphi_2$;
+				\item[-] $\state{}{s} \models \eAlpha{\varphi}$ if $\state{}{s} \models
+					      \mathbf{B}_{\agentSlide{ag_i}}{\varphi}$ for all \agentSlide{ag_i} $\in \alpha$;
+				\item<.->[-] $\state{}{s} \models \cAlpha{\varphi}$ if
+				      $\state{}{s} \models \eAlphaIter{k}{\varphi}$ for every
+				      $k\geq0$, where $\eAlphaIter{0}{\varphi} = \varphi$ and
+				      $\eAlphaIter{k+1}{\varphi} =\eAlpha{(\eAlphaIter{k}{\varphi})}$.
+			\end{itemize}
+		\end{block}
+		\onslide<3->{The entailment for the standard operators is defined as usual}
+	\end{frame}
+}
+
+\showCILC{false}{
+	\begin{frame}{A little note on Complexity}
+
+		\only<1>{Given a Kripke Structure $M$, a belief formula $\varphi$ and a group of agents \sAG\ s.t. $|\sAG| \geq 2$
+			\begin{block}{Model-checking problem~\cite{fagin1994reasoning}}
+
+				\begin{table}
+					\def\arraystretch{1.2}%
+					\begin{tabular}{||c|c|c||}
+						\hhline{|t:===:t|}
+						\multicolumn{1}{||c|}{\phantom{...}$\calK_1$ and $\calB_1$\phantom{...}}
+						 & \multicolumn{1}{c|}{\phantom{...}$\calK_{\sAG}$ and $\calB_{\sAG}$\phantom{...}}
+						 & \multicolumn{1}{c||}{\phantom{...}$\calK_{\sAG}^{\mathbf{C}}$ and $\calB_{\sAG}^{\mathbf{C}}$\phantom{...}} \\
+						\hhline{||-|-|-||}
+						\multicolumn{3}{||c||}{Polynomial Time -- $\mathcal{O}(||M|| \times |\varphi|)$}                               \\
+						\hhline{|b:===:b|}
+					\end{tabular}
+				\end{table}
+				{\small
+				where $||M|| = |M[S]| + \sum_{i=0}^{n} |\calR_i|$}
+			\end{block}
+		}
+		\only<2>{Given a group of agents \sAG\ s.t. $|\sAG| \geq 2$
+			\begin{block}{Satisfiability problem for $\calK$nowledge and $\calB$elief~\cite{fagin1994reasoning}}
+				\begin{table}
+					\def\arraystretch{1.2}%
+					\begin{tabular}{||c|c|c||}
+						\hhline{|t:===:t|}
+						\multicolumn{1}{||c|}{\phantom{...}$\calK_1$ and $\calB_1$\phantom{...}}
+						 & \multicolumn{1}{c|}{\phantom{...}$\calK_{\sAG}$ and $\calB_{\sAG}$\phantom{...}}
+						 & \multicolumn{1}{c||}{\phantom{...}$\calK_{\sAG}^{\mathbf{C}}$ and $\calB_{\sAG}^{\mathbf{C}}$\phantom{...}} \\
+						\hhline{||-|-|-||}
+						\multicolumn{1}{||c|}{NP-complete}
+						 & \multicolumn{1}{c|}{PSPACE-complete}
+						 & \multicolumn{1}{c||}{EXPTIME-complete}                                                                      \\
+						\hhline{|b:===:b|}
+					\end{tabular}
+				\end{table}
+				{\small w.r.t. a belief formula $\varphi$}
+			\end{block}
+		}
+		\only<3>{
+
+			\begin{block}{Problems in \emphSlide{DEL} without restrictions~\cite{bolander2015complexity}}
+				\begin{table}
+					\def\arraystretch{1.2}%
+					\begin{tabular}{||c|c|c||}
+						\hhline{|t:===:t|}
+						\multicolumn{1}{||c|}{Model checking}
+						 & \multicolumn{1}{c|}{Plan Verification Problem}
+						 & \multicolumn{1}{c||}{Plan Existence}           \\
+						\hhline{||-|-|-||}
+						\multicolumn{1}{||c|}{PSPACE-hard}
+						 & \multicolumn{1}{c|}{PSPACE-complete}
+						 & \multicolumn{1}{c||}{UNDECIDABLE}                 \\
+						\hhline{|b:===:b|}
+					\end{tabular}
+				\end{table}
+				We intend to explore the last two cases with DEL restricted to $\calK$ and $\calB$
+			\end{block}
+		}
+	\end{frame}
+}
+
+\showCILC{true}{
+	\begin{frame}{Problems}
+		\vspace*{0.5cm}
+		\begin{columns}
+			\begin{column}{0.9\textwidth}
+				\begin{center}
+					\begin{itemize}
+						\item[-] Solvers require high amount of memory
+						\item[-] In literature the states have been represented	explicitly
+						\item[-] State comparison needs to find \emphSlide{bisimilar} states
+					\end{itemize}
+				\end{center}
+			\end{column}
+			\begin{column}{0.2\textwidth}
+				\centering
+				\includegraphics[width=0.5\textwidth]{img/worried_charlie}
+			\end{column}
+		\end{columns}
+		\vspace*{0.5cm}
+		\begin{figure}
+			\centering
+			\scalebox{.45}{\input{img/equality1_corr}}
+			\scalebox{.45}{\input{img/equality2}}
+		\end{figure}
+	\end{frame}
+}
+
+
+\showCILC{true}{
+	\begin{frame}{Solutions}
+		\begin{columns}
+			\begin{column}{0.9\textwidth}
+				\begin{center}
+					\begin{itemize}
+						\onslide<1->{\item[-] Heuristics~\cite{le2018efp}}
+						      \onslide<2->{\item[-] Symbolic representation of Kripke structures %(\eg \textit{OBDDs})
+						      }
+						      \onslide<3>{\item[\huge \emphColorSlide{-}]\Large \emphColorSlide{Alternative representations}}
+					\end{itemize}
+				\end{center}
+			\end{column}
+			\begin{column}{0.2\textwidth}
+				\centering
+				\hspace*{-1cm}\includegraphics[width=1\textwidth]{img/idea_charlie}
+			\end{column}
+		\end{columns}
+
+	\end{frame}
+}
+
