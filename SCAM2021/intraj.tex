@@ -1,0 +1,188 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%-------------------------------------------------------
+% THEME SETTINGS
+%-------------------------------------------------------
+\usetheme[progressstyle=movingCircCnt]{Feather}
+\setbeamercolor{Feather}{fg=black!30,bg=black}
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{block body example}{bg=black!5!white}
+\setbeamercolor{block title example}{fg=white,bg=black!40!white}
+
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{cite}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{multicol}
+%\usepackage{showframe}
+
+\usepackage{tikz}
+%\usetikzlibrary{patterns}
+\usetikzlibrary{patterns,arrows,decorations.pathmorphing,backgrounds,shadows,positioning,fit,shapes,matrix,calc,shapes.multipart,arrows.meta}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{xpatch} % Needed for patching pgf-umlcd
+\usepackage{xparse} % Needed for patching pgf-umlcd
+\usepackage{color,soul} % for \hl
+\definecolor{dark-yellow}{RGB}{219, 212, 143}
+\definecolor{dark-green}{RGB}{36,84,36}
+\definecolor{my-gray}{gray}{0.85}
+\sethlcolor{dark-yellow}
+
+
+
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{tikz-qtree,tikz-qtree-compat}
+
+\input{macros.tex}
+
+
+\makeatletter
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}}}
+\renewcommand\@makefntext[1]{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}\usebeamerfont*{footnote} #1}
+\makeatother
+
+%Modify the Title display on frame
+\makeatletter
+\patchcmd\beamer@@tmpl@frametitle{\insertframetitle}{{\footnotesize \insertsection~\emphColorSlide{\insertsubsection}~\\} \textbf{\insertframetitle}}{}{}
+\makeatother
+%Add space to the footline
+\makeatletter
+\patchcmd{\beamer@calculateheadfoot}{\advance\footheight by 4pt}{\advance\footheight by 8pt}{}{}
+\makeatother
+
+%NO HEAD LINE
+\makeatletter
+\newenvironment{noheadline}{
+	\setbeamertemplate{headline}[default] {}
+	\setfootline
+}{}
+\makeatother
+
+%Slide with  Section title
+%\AtBeginSection[]{
+%	\begin{noheadline}
+%	\begin{frame}[noframenumbering]
+%			\begin{center}
+%				\large Chapter \thesection \\
+%				\vspace*{1cm}
+%				\centering {\usebeamerfont{title} \huge\textcolor{black}{\insertsectionhead}}
+%				\vspace*{1cm}
+%			\end{center}
+%		\end{frame}
+%	\end{noheadline}
+%}
+
+
+\newcommand{\setfootline}{
+	\setbeamercolor{footline}{fg=white,bg=black}
+	\setbeamertemplate{footline}{%
+		\begin{beamercolorbox}[wd=1.0\paperwidth,left,ht=2.5ex,dp=1ex]{footline}
+			\usebeamerfont{section in head/foot}%
+			\hspace*{3.5ex}%
+			\insertshortauthor\ |\
+			\insertshorttitle
+			\insertshortsubtitle
+		\end{beamercolorbox}
+	}
+	\addtobeamertemplate{footline}{%
+		\setlength\unitlength{1ex}%
+		\begin{picture}(0,0)
+		\put(125,2.5){\makebox(0,0)[bl]{
+			\includegraphics[scale=0.25]{img/scam.png}
+	}}%
+		\end{picture}%
+	}{}
+}
+
+
+
+
+
+
+%-------------------------------------------------------
+% INFORMATION IN THE TITLE PAGE
+%-------------------------------------------------------
+
+\subtitle[{\color{ForestGreen}\textbf{IEEE-SCAM2021}}]
+{
+	\footnotesize{21st IEEE International Working Conference on Source Code Analysis and Manipulation
+}
+}
+
+\title[] % [] is optional - is placed on the bottom of the sidebar on every slide
+{ % is placed on the title page
+	\textsc{
+	 A Precise Framework for Source-Level Control-Flow Analysis}
+}
+
+
+
+\author[\textbf{Idriss Riouak}, Christoph Reichenbach, G\"{o}rel Hedin and Niklas Fors]
+{ \emphSlide{Idriss Riouak}, Christoph Reichenbach, G\"{o}rel Hedin and Niklas Fors}
+
+\institute[]
+{\vspace{1cm}
+	\textbf{Lund University}\\
+	\textbf{Computer Science Department} \\
+}
+
+\date{September 28, 2021}
+
+\makeatletter
+\newcommand\SoulColor{%
+  \let\set@color\beamerorig@set@color
+  \let\reset@color\beamerorig@reset@color}
+\makeatother
+\SoulColor
+
+\begin{document}
+\setfootline
+
+%-------------------------------------------------------
+% THE TITLEPAGE
+%-------------------------------------------------------
+
+{\1
+\begin{frame}[plain,noframenumbering]
+		\titlepage
+	\end{frame}}
+
+%-------------------------------------------------------
+% BODY
+%-------------------------------------------------------
+
+\section{Introduction and Motivations}
+\input{ch0-introduction.tex}
+\section{RAGs Notation}
+\input{ch1-rags.tex}
+\section{The \intracfgs\ Framework}
+\input{ch2-rags.tex}
+\section{\intrajs: \intracfgs\ implementation for Java 7}
+\input{ch3-intraj.tex}
+\section{Evaluation}
+\input{ch4-evaluation.tex}
+\section{Conclusions}
+\input{ch5-conclusions.tex}
+
+%No page Numbering
+\setbeamercolor{headline}{fg=white,bg=black}
+\setbeamertemplate{headline}{
+	\begin{beamercolorbox}[wd=1.0\paperwidth,left,ht=38pt,dp=1ex]{headline}
+	\end{beamercolorbox}
+	\vspace*{2.3pt}
+	\color{black!30!white}\rule{\paperwidth}{2pt}
+}
+
+
+\end{document}
