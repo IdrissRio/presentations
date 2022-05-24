@@ -1,2 +1,2 @@
 # presentations
-Collection of all my presentaions
+Collection of all my presentations

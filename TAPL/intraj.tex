@@ -1,0 +1,420 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%-------------------------------------------------------
+% THEME SETTINGS
+%-------------------------------------------------------
+\usetheme[progressstyle=movingCircCnt]{Feather}
+\setbeamercolor{Feather}{fg=black!30,bg=black}
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{block body example}{bg=black!5!white}
+\setbeamercolor{block title example}{fg=white,bg=black!40!white}
+
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{cite}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{multicol}
+%\usepackage{showframe}
+
+\usepackage{tikz}
+%\usetikzlibrary{patterns}
+\usetikzlibrary{patterns,arrows,decorations.pathmorphing,backgrounds,shadows,positioning,fit,shapes,matrix,calc,shapes.multipart,arrows.meta}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{xpatch} % Needed for patching pgf-umlcd
+\usepackage{xparse} % Needed for patching pgf-umlcd
+\usepackage{color,soul} % for \hl
+\definecolor{dark-yellow}{RGB}{219, 212, 143}
+\definecolor{dark-green}{RGB}{36,84,36}
+\definecolor{my-gray}{gray}{0.85}
+\sethlcolor{dark-yellow}
+
+
+
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{tikz-qtree,tikz-qtree-compat}
+
+\input{macros.tex}
+
+
+\makeatletter
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}}}
+\renewcommand\@makefntext[1]{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}\usebeamerfont*{footnote} #1}
+\makeatother
+
+%Modify the Title display on frame
+\makeatletter
+\patchcmd\beamer@@tmpl@frametitle{\insertframetitle}{{\footnotesize \insertsection~\emphColorSlide{\insertsubsection}~\\} \textbf{\insertframetitle}}{}{}
+\makeatother
+%Add space to the footline
+\makeatletter
+\patchcmd{\beamer@calculateheadfoot}{\advance\footheight by 4pt}{\advance\footheight by 8pt}{}{}
+\makeatother
+
+%NO HEAD LINE
+\makeatletter
+\newenvironment{noheadline}{
+	\setbeamertemplate{headline}[default] {}
+	\setfootline
+}{}
+\makeatother
+
+%Slide with  Section title
+%\AtBeginSection[]{
+%	\begin{noheadline}
+%	\begin{frame}[noframenumbering]
+%			\begin{center}
+%				\large Chapter \thesection \\
+%				\vspace*{1cm}
+%				\centering {\usebeamerfont{title} \huge\textcolor{black}{\insertsectionhead}}
+%				\vspace*{1cm}
+%			\end{center}
+%		\end{frame}
+%	\end{noheadline}
+%}
+
+
+\newcommand{\setfootline}{
+	\setbeamercolor{footline}{fg=white,bg=black}
+	\setbeamertemplate{footline}{%
+		\begin{beamercolorbox}[wd=1.0\paperwidth,left,ht=2.5ex,dp=1ex]{footline}
+			\usebeamerfont{section in head/foot}%
+			\hspace*{3.5ex}%
+			\insertshortauthor\ |\
+			\insertshorttitle
+			\insertshortsubtitle
+		\end{beamercolorbox}
+	}
+	\addtobeamertemplate{footline}{%
+		\setlength\unitlength{1ex}%
+		\begin{picture}(0,0)
+		\put(125,3){\makebox(0,0)[bl]{
+			\includegraphics[scale=0.20]{img/scam.png}
+	}}%
+		\end{picture}%
+	}{}
+}
+
+
+
+
+
+
+%-------------------------------------------------------
+% INFORMATION IN THE TITLE PAGE
+%-------------------------------------------------------
+
+\subtitle[{\color{ForestGreen}\textbf{TAPL 2022}}]
+{
+	\footnotesize{TAPL 2022
+}
+}
+
+\title[] % [] is optional - is placed on the bottom of the sidebar on every slide
+{ % is placed on the title page
+	\textsc{
+	 Type Reconstruction}
+}
+
+
+
+\author[\textbf{Idriss Riouak}]
+{ \emphSlide{Idriss Riouak}}
+
+\institute[]
+{\vspace{1cm}
+	\textbf{Lund University}\\
+	\textbf{Computer Science Department} \\
+}
+
+\date{\today}
+
+\makeatletter
+\newcommand\SoulColor{%
+  \let\set@color\beamerorig@set@color
+  \let\reset@color\beamerorig@reset@color}
+\makeatother
+\SoulColor
+
+\begin{document}
+\setfootline
+
+%-------------------------------------------------------
+% THE TITLEPAGE
+%-------------------------------------------------------
+
+{\1
+\begin{frame}[plain,noframenumbering]
+		\titlepage
+	\end{frame}}
+
+%-------------------------------------------------------
+% BODY
+%-------------------------------------------------------
+
+\begin{frame}{Ch. 22 - Type reconstruction}
+\hspace{-1cm}
+\begin{minipage}[t]{0.4\textwidth}
+\includegraphics[scale=0.25]{img/depgraph}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\vspace{-5cm}
+\includegraphics[scale=0.17]{img/1}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Goal of today lecture}
+
+\emphColorSlide{Type checking}: Given $\Gamma,t$ and $T$, \alert{check} whether $\Gamma \models t:T$.
+
+
+\vspace{1cm}
+
+
+\emphColorSlide{Type reconstruction}: Given $\Gamma$ and $t$, \alert{find} a type $T$ s.t. $\Gamma \models t:T$.
+\end{frame}
+
+\begin{frame}{Outline}
+\includegraphics[scale=0.25]{img/2}
+\end{frame}
+
+\begin{frame}{Operations on type variables}
+Let us consider the following term:
+$$\lambda g:Y. \lambda a:X. g (g\ a)$$
+\alert{it is not typable} as it stands.
+\onslide<2->{
+It is typable if we \emphColorSlide{substitute} $Y$ with $\mathtt{Nat} \rightarrow \mathtt{Nat}$ and $X$ with $\mathtt{Nat}$:
+$$\lambda g:\mathtt{Nat} \rightarrow \mathtt{Nat}.  \lambda a:\mathtt{Nat}. g (g\ a)$$
+}
+\vspace*{-0.5cm}
+\onslide<3->{
+\begin{block}{Definition}
+A type substitution is a finite mapping from type variables to types.
+\end{block}}
+\onslide<4->{
+\begin{example}{}
+The substitution $[Y \mapsto X \rightarrow X, X \mapsto \mathtt{Bool}]$ will map $X$ to $\mathtt{Bool}$, and $Y$ to $X \rightarrow X$, not $ \mathtt{Bool} \rightarrow  \mathtt{Bool}$
+\end{example}
+}
+\end{frame}
+
+\begin{frame}{Operation on type variables}
+Application of a substitution $\sigma$ to a type:
+\begin{align*}
+\sigma(X) &= \begin{cases}
+T & \text{if } (X \mapsto T) \in \sigma\\
+X & \text{if } X \not\in dom(\sigma)
+\end{cases}\\
+\sigma(Nat) &= Nat\\
+\sigma(Bool) &= Bool\\
+\sigma(T_1 \rightarrow T_2) &= \sigma(T_1) \rightarrow \sigma(T_2)
+\end{align*}
+
+
+If $\sigma$ and $\gamma$ are substitutions:
+$$\sigma \circ \gamma = \begin{cases}
+X \mapsto \sigma(T)& \text{for each } (X \mapsto T)\in \gamma\\
+X \mapsto T & \text{for each } (X \mapsto T) \in\sigma \wedge X \not\in dom(\gamma)
+\end{cases} $$
+
+TL;DR: $(\sigma \circ \gamma )S=\sigma(\gamma S)$
+\end{frame}
+
+\begin{frame}{Outline}
+\includegraphics[scale=0.25]{img/3}
+\end{frame}
+\begin{frame}{Two interesting questions}
+\begin{itemize}
+\item ``Are \alert{all} substitution instances of $t$ well typed ?''\\
+  i.e., $\forall \sigma. \sigma\Gamma \models \sigma t: T$ for some $T$ ?
+\begin{example}
+$\lambda g: X \rightarrow X.  \lambda a: X. g(g\ a)$
+\end{example}
+\item ``Is \emphColorSlide{some} substitution instance of $t$ well typed'' ? \\
+  i.e., $\exists \sigma: \sigma\Gamma \models \sigma t: T$ for some $T$ ?
+\begin{example}
+$\lambda g: Y \rightarrow X.  \lambda a: X. g(g\ a)$
+\end{example}
+
+\end{itemize}
+Looking for \emphColorSlide{valid instantiations} of type variables leads to the ideas of type \textit{reconstruction} (or type inference). The programmer (as in ML or Haskell) may leave out all type annotations.
+\end{frame}
+
+
+\begin{frame}{Type solution}
+\begin{block}{Definition}
+Let $\Gamma$ be a context and $t$ a term. A \emphColorSlide{solution} for $(\Gamma,t)$ is a pair $(\alert{\sigma},\emphColorSlide{T})$ s.t. $\alert{\sigma}\Gamma\models\alert{\sigma} t:\emphColorSlide{T}$.
+\end{block}
+
+\begin{example}
+Let $\Gamma=g:X, a:Y$ and $t=g\ a.$ Then all the solutions for $(\Gamma,t)$ are:
+\begin{itemize}
+\item $([X \mapsto Y \rightarrow \mathtt{Nat}],\mathtt{Nat})$
+\item $([X \mapsto Y \rightarrow  Z, Z \mapsto \mathtt{Nat}],Z)$
+\item $([X \mapsto \mathtt{Nat} \rightarrow \mathtt{Nat}, Y \mapsto \mathtt{Nat}],\mathtt{Nat})$
+\item $([X \mapsto Y \rightarrow Z],Z)$
+\item $([X \mapsto Y \rightarrow \mathtt{Nat} \rightarrow \mathtt{Nat}],\mathtt{Nat})$
+\end{itemize}
+\end{example}
+
+
+\end{frame}
+\begin{frame}{Outline}
+\includegraphics[scale=0.25]{img/4}
+\end{frame}
+
+\begin{frame}{Constraint-based typing}
+\begin{block}{Definition}
+\begin{itemize}
+\item A \emphColorSlide{constraint set} C is a set of equations \{ $S_i = T_i^{i \in 1...n} $ \}.
+\item A substitution $\sigma$ is said to \alert{unify} an equation $S=T$ if the substitution instances $\sigma S$ and $\sigma T$ are \emphColorSlide{identical}.
+\item  We say that $\sigma$ unifies $C$ if it unifies \emphColorSlide{every equation} in C.
+\end{itemize}
+\end{block}
+
+\begin{block}{Definition}
+Suppose that $\Gamma \models t: S \mid_{\chi}C.$ A solution for $(\Gamma, t, S, C)$ is a pair $(\sigma, T)$ s.t. $\sigma$ satisfies $C$ and $\sigma S= T$.
+\end{block}
+ We read $\Gamma \models t :T \mid_\chi C$ as ``Term $t$ has type $T$ under assumptions $\Gamma$ whenever constraints $C$ are satisfied''
+\end{frame}
+
+\begin{frame}{Constraint typing rules}
+\includegraphics[scale=0.4]{img/rules}
+\end{frame}
+
+\begin{frame}{Declarative and Algorithmic specification}
+Given a context $\Gamma$ and a term $t$, there are two ways of instantiating type variables in $\Gamma$ and $t$ to produce a valid typing:
+
+\vspace{0.5cm}
+\begin{enumerate}
+\item[1)] \emphColorSlide{[Declarative]}: as the set of all solutions for $(\Gamma,t)$ in the sense of Definition 22.2.1
+\item[2)] \emphColorSlide{[Algorithmic]}: via the constraint typing relation, by finding $S$ and $C$ such that $\Gamma \models t: S\mid C$ and then taking the set of solutions for $(\Gamma, t, S,C)$.
+\end{enumerate}
+
+\vspace{.5cm}
+The two specification are equivalent.
+
+\vspace{.5cm}
+You can find the proof in the book :)
+
+\end{frame}
+
+\begin{frame}{Outline}
+\includegraphics[scale=0.25]{img/5}
+\end{frame}
+
+\begin{frame}{Unification}
+To compute solutions to constraint sets, we use the idea of unification\\
+\vspace{0.5cm}
+\includegraphics[scale=0.4]{img/unification}
+\end{frame}
+
+\begin{frame}{More about unification}
+\begin{itemize}
+\item We say that a substitution $\sigma$ is \emphColorSlide{less specific} than a substitution $\sigma'$, written $\sigma \sqsubseteq \sigma'$, if $\sigma' =  \gamma \circ \sigma$ for some substitution $\gamma$.
+\item $\sigma$ is a \emphColorSlide{principal unifier} for a constraint set $C$ iff $$\forall \sigma' \in C: \sigma \sqsubseteq \sigma'.$$
+
+\begin{theorem}
+The algorithm `\emphColorSlide{unify}' always terminates, failing when given a non unifiable constraint set as input and otherwise returning a principal unifier.
+\end{theorem}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Outline}
+\includegraphics[scale=0.25]{img/6}
+\end{frame}
+\begin{frame}[fragile]{Let-polymorphism}
+The term polymorphism refers to a range of language mechanisms that allow a single part of a program to be used with different types.
+
+\begin{example}
+\begin{lstlisting}[frame=none]
+let f = \x.x in
+let nat = f 1 in
+let bool = f true in ...
+\end{lstlisting}
+\end{example}
+
+\begin{itemize}
+\item With the type reconstruction algorithms discussed previously, this program is not well-typed.
+\item The type reconstruction algorithm shown before can be generalized to provide a simple form of polymorphism known as let-polymorphism.
+\item More about polymorphism will be discussed next week.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Let-polymorphism}
+Old typing rule:
+\begin{center}
+\includegraphics[scale=0.4]{img/old}
+\end{center}
+
+New  typing rule:
+\begin{center}
+\includegraphics[scale=0.4]{img/new}
+\includegraphics[scale=0.3]{img/newconstraint}
+\end{center}
+\onslide<2->{
+What about `\texttt{let x = <garbage> in 5}' ?
+}
+\onslide<3->{
+\begin{center}
+\includegraphics[scale=0.4]{img/newnew}
+\end{center}
+}
+
+\end{frame}
+
+%\begin{frame}{Algorithmic let-polymorphism}
+%The type-checking of a term \code{let x = $\mathtt{t_1}$ in\ $\mathtt{t_2}$} in a context $\Gamma$ proceeds as follows:
+%\begin{itemize}
+%\item Calculate a type $S_1$ and a set $C_1$ of associated constraints for the right-hand side $t_1$.
+%\item Obtain $t_1$'s principal type $T_1$
+%\item If $X_1...X_n$ are the remaining variables in $T_1$, we write $\forall X_1...X_n.T_1 $ for the principal type scheme of $t_1$.
+%\item Each time we encounter an occurrence of $x$ in $t_2$, we generate fresh $Y_1...Y_n$, yielding [$X_1\mapsto Y_1, ..., X_n \mapsto Y_n$ ]$T_1$.
+%\end{itemize}
+%
+%\end{frame}
+
+\begin{frame}{Essentially linear}
+The algorithm is efficient ad in practice it appears ``\emphColorSlide{essentially linear}'' in the size of the input program. But the worst-case complexity is still \alert{exponential}.
+
+\vspace{0.5cm}
+\includegraphics[scale=0.4]{img/expo}
+
+\end{frame}
+
+\begin{frame}{Conclusion}
+\begin{center}
+Type reconstruction algorithm \\ =\\ \emphColorSlide{Constraint generation} \\+\\\emphColorSlide{unification}.
+\end{center}
+
+
+\vspace{1cm}
+
+\begin{center}
+First introduction to\emphColorSlide{ polymorphism}
+\end{center}
+
+\end{frame}
+
+%No page Numbering
+\setbeamercolor{headline}{fg=white,bg=black}
+\setbeamertemplate{headline}{
+	\begin{beamercolorbox}[wd=1.0\paperwidth,left,ht=38pt,dp=1ex]{headline}
+	\end{beamercolorbox}
+	\vspace*{2.3pt}
+	\color{black!30!white}\rule{\paperwidth}{2pt}
+}
+
+
+\end{document}

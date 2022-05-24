@@ -1,0 +1,26 @@
+	Multi-agent planning and epistemic knowledge have recently gained attention from several research communities. 
+	Efficient autonomous systems that can reason in these domains could lead to winning strategies in various fields such as economy~\cite{aumann1995epistemic}, security~\cite{Balliu:2011:ETL:2166956.2166962}, justice~\cite{prakken2013logical}, politics~\cite{carbonell1978politics} and can be exploited by self-driving cars and other autonomous devices that can control several aspects	of our daily life.
+	
+	%As said before, 
+	Epistemic planners are not only interested in the state of the world but also in the knowledge (or beliefs) of the agents.
+%	Nevertheless, reasoning about knowledge (or beliefs) can have different meaning depending on the expressiveness of the language that is used to describe the domain (this concept will be briefly introduced in \S~\ref{sec:epistemic_logic}).
+	%It is only natural, then, that 
+	Some problems can be expressed through less expressive languages and need less powerful, and usually faster, planners.
+	For example~\cite{muise2015planning,huang2017general} dealing with problems where dynamic \emph{\ck}\ and unbounded nested knowledge are  respectively not needed.
+	%To reason about other's knowledge/beliefs introduces a significant increase of complexity, as shown in table~\ref{tab:complexity}.
+	%and although there	is a large body of research on multi-agent planning very few efforts address the above aspects of multi-agent domains which pose a	number of new research challenges in representing and reasoning about actions and change
+	On the other hand, to the best of our knowledge, only few systems~\cite{le2018efp,liu2018multi} can reason about epistemic knowledge in multi-agent domains without these limitations, \ie using the language \lagC\ presented in \S~\ref{sec:epistemic_logic}.
+	Such systems, that can reason on the full extent of \lagC, base their concept of state on \emph{Kripke structures}.
+	Using a Kripke structure as state has a negative impact on the performances of the planner.
+	First of all, to store all the necessary states, solvers require a high amount of memory.
+	Moreover to perform operations, such as entailment or the application of the transition function, the states have been represented explicitly. %\footnote{As the operations involve reachability the graph that represents the Kripke structure needs to be fully expanded.}.
+	That is why, as the research on epistemic reasoning advances~\cite{baral2015action,aucher2013undecidability,bolander2015complexity}, it is interesting to analyze alternative representations for the states that could lead to more efficient operations on the search-space.
+	
+	In this work we formalized the epistemic planning problem where the states are represented by \emph{\posS}\ (introduced in \S~\ref{sec:possibilities}) which are based on \nwf\ set theory.
+	This representation will allow us to describe the language through set-based operations and also to exploit some of the results from this field, such as the concept of bisimulation, to add important features to the \mAGep\ (\mep) community.\\
+
+	The paper is organized as follows: Section~\ref{sec:epistemic_logic} will present the concept of epistemic planning. %and a quick overview on the \sota\ planners for this setting.
+	In Section~\ref{sec:mal} we will introduce what, in our opinion, is the most complete action language for \mep\ that bases its states on the concept of Kripke structure.
+	The background will be then concluded with Section~\ref{sec:possibilities} where we will describe \posS, an interesting approach that combines \nwf\ set theory with epistemic logic.
+	In Section~\ref{sec:contribution} we will introduce our semantics, based on \posS, of \ourL (an action language for \mep) and we will show a comparison with the \sota\ action language \mAL.
+	We will finally conclude in Section~\ref{sec:conclusion} with future works.

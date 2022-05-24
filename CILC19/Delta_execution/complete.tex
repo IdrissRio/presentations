@@ -1,0 +1,67 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{graphicx}
+%
+%Ours
+\usepackage[USenglish]{babel}
+\usepackage{todonotes}
+\usepackage{etoolbox}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{tikz}
+\usepackage{footnote}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{hhline}
+\usepackage{cite}
+\usepackage[inline]{enumitem}
+\usepackage[all]{foreign}
+\usepackage{nicefrac}
+\usepackage[section]{placeins}
+%\usepackage{showframe}
+\usepackage{adjustbox}
+
+\input{../macros}
+
+%
+%
+%
+\begin{document}
+
+\begin{figure}[H]
+	\centering
+	\input{ini}
+	\caption{Initial State.}
+\end{figure}%
+\begin{align*}
+s_0 &= \bra{\looking b,\looking c, \opened}\\
+s_1 &= \bra{\looking{b},\looking{c},\opened,\head}
+\end{align*}
+
+\begin{figure}[H]
+	\centering
+	\input{peek}
+	\caption{State after \peek{B} where $p_0 = \bra{\looking b,\looking c, \opened}$.}
+\end{figure}%
+
+
+\begin{figure}[H]
+	\centering
+	\input{distract}
+	\caption{State after \distract{B}{C} where $q_0 = \bra{\looking c, \opened}$.}
+\end{figure}%
+
+
+\begin{figure}[H]
+	\centering
+	\input{flip}
+	\caption{State after \flip{C} where $r_1 = \bra{\looking c, \opened, \head}$.}
+\end{figure}%
+
+
+\begin{figure}[H]
+	\centering
+	\input{tell}
+	\caption{State after \tell{B}{c}.}
+\end{figure}%
+
+\end{document}

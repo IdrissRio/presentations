@@ -1,0 +1,217 @@
+%%%%%%%%%% POSSIBILITIES
+\showCILC{true}{
+	\begin{frame}{Overview}
+		\begin{itemize}
+			\item[-] Introduced by Gerbrandy and Groeneveld~\cite{Gerbrandy1997}
+			\item[-] Used to represent \emphSlide{multi-agent information change}
+			\item[-] Based on \emphSlide{\nwf\ sets}
+			\item[-] Corresponds with a class of bisimilar Kripke structures~\cite{gerbrandy1999bisimulations}
+		\end{itemize}
+	\end{frame}
+}
+
+%%%%%%%%%% NWFSs
+\showCILC{true}{
+	\subsection*{\Nwf\ sets theory}
+}
+
+%\showCILC{true}{\begin{frame}{\Wf\ sets}
+%		\begin{block}{\Wf\ set}
+%			Let $E$ be a set, $E^\prime$ one of its elements, $E^{\prime\prime}$ any element of $E^\prime$, and so on. A descent is the sequence of steps from $E$ to $E^\prime$, $E^\prime$ to $E^{\prime\prime}$, etc.  A set is 
+%			\alert{\wf}\ (or \emph{ordinary}) when it only gives rise to \emph{finite} descents.
+%		\end{block}
+%	
+%	\vspace{-0.3cm}
+%		\begin{figure}
+%			{\scalebox{0.6}{\input{img/vonNeumann}}\label{subfig-1:von_neu_ord}}
+%			\hspace{1cm}
+%			{
+%				\scalebox{0.8}{\input{img/vonNeumann_alternative}}}
+%			{\centering\\\onslide<2->{ von Neumann ordinals:\\
+%					$0=\emptyset$;}
+%				\onslide<3->{$1=\bra{\emptyset}$;}
+%				\onslide<4->{$2=\bra{\emptyset, \bra{\emptyset}}$;}
+%				\onslide<5->{$3=\bra{\emptyset,\bra{\emptyset},\bra{\emptyset,\bra{\emptyset}}}$}}
+%		\end{figure}
+%\end{frame}}
+\showCILC{false}{
+	\begin{frame}{\Wf\ sets}
+		\begin{block}{\Wf\ set \cite{Aczel1989-ACZNS-2}}
+			Let $E$ be a set, $E^\prime$ one of its elements, $E^{\prime\prime}$ any element of $E^\prime$, and so on. A \emphSlide{descent} is the sequence of steps from $E$ to $E^\prime$, $E^\prime$ to $E^{\prime\prime}$, etc.  A set is
+			\emphSlide{\wf}\ (or \emphSlide{ordinary}) when it only gives rise to finite descents.
+		\end{block}
+
+		\vspace{-0.2cm}
+		\begin{figure}
+			{\scalebox{0.7}{\input{img/vonNeumann}}\label{subfig-1:von_neu_ord}}
+			\hfill
+			{\scalebox{1}{\input{img/vonNeumann_alternative}}}
+		\end{figure}
+		\centering von Neumann ordinals:\\
+		$0=\emptyset$;
+		$1=\bra{\emptyset}$;
+		$2=\bra{\emptyset, \bra{\emptyset}}$;
+		$3=\bra{\emptyset,\bra{\emptyset},\bra{\emptyset,\bra{\emptyset}}}$
+	\end{frame}
+}
+
+\showCILC{true}{
+	\begin{frame}{\Nwf\ sets}
+		\begin{block}{\Nwf\ set~\cite{Aczel1989-ACZNS-2}}
+			A set is \emphSlide{\nwf}\ (or \emphSlide{extraordinary}) when among its descents there are some which are infinite.
+		\end{block}
+		\centering
+		\begin{figure}
+			{\scalebox{0.6}{\input{img/omega}}}
+			\hfill
+			{\scalebox{1.2}{\input{img/omega_alternative}}}
+			\\
+			The \nwf\ set $\Omega = \{\Omega\}$
+		\end{figure}
+	\end{frame}
+}
+
+\showCILC{false}{
+	\begin{frame}{Consequences}
+
+		\begin{columns}[T] % align columns
+			\begin{column}{.48\textwidth}
+				{\color{black}\rule{\linewidth}{4pt}
+					\Wf\ set Theory}
+				\begin{center}
+					\emph{Only \wf\ graphs have decorations \textbf{(FA)}\tikzmark{conseqa}}\\
+					$\mathbf{\downarrow}$\\
+					\emph{Each \wf\ graph is a picture of exactly one set\tikzmark{conseqc}}
+				\end{center}
+
+			\end{column}%
+			\hfill%
+			\onslide<2->{\begin{column}{.48\textwidth}
+					{\emphColorSlide{\rule{\linewidth}{4pt}
+							\Nwf\ set Theory}}
+					\begin{center}
+						{\color{ForestGreen!80!white}\emph{Every graph has a decoration \tikzmark{conseqb}\textbf{(AFA)}}\\
+							\textbf{$\downarrow$}\\
+							\emph{Every graph is a picture of \tikzmark{conseqd}exactly one set}}
+					\end{center}
+				\end{column}}%
+		\end{columns}
+		\onslide<2->{\begin{tikzpicture}[overlay,remember picture]
+				\draw[very thick, -Stealth, ForestGreen] ($({pic cs:conseqc})+(1.5ex,9.5ex)$) to ($({pic cs:conseqd})+(-6ex,9.5ex)$);
+				\draw[very thick, -Stealth, ForestGreen] ($({pic cs:conseqc})+(1.5ex,1.5ex)$) to ($({pic cs:conseqd})+(-6ex,1.5ex)$);
+			\end{tikzpicture}
+		}
+
+	\end{frame}
+}
+\subsection*{}
+%	\showCILC{true}{\begin{frame}{From \PosS\ to Kripke Structures}
+%		A \nwf\ set can be expressed as a \emph{system of equations}
+%		\begin{center}
+%			\begin{figure}
+%			{\scalebox{0.6}{\input{img/omega2}}}
+%			\end{figure}
+%		\end{center}
+%		\vspace{-0.5cm}
+%		\begin{center}
+%			\textbf{Graphs} and \textbf{system of equations} are representation for \nwf\ set.\\
+%			\vspace{0.2cm}
+%			\onslide<2->{
+%			Each graph has a \emph{unique decoration}}
+%			\onslide<3->{
+%			\\$\downarrow$\\
+%			Each system of equations has a \emph{unique solution}, and  this solution represents a \emph{decoration} for a labelled graph (Kripke structure)  
+%			}
+%			\onslide<4->{\\$\downarrow$\\
+%			\emphSlide{\textbf{A \pos\ correspond with a whole class of bisimilar, but structurally different, Kripke structures}}}
+%		\end{center}
+%	\end{frame}}
+
+\showCILC{true}{
+	\begin{frame}{Formal Definition}
+		\begin{block}{\Pos~\cite{Gerbrandy1997}}
+			Let \sAG\ be a set of agents and \sP\ a set of propositional variables:
+			\begin{itemize}
+				\item[-] A \emphSlide{\pos}\ $\poss{u}$ is a function that assigns to each propositional variable $\defemph{\ttSlide{l}} \in \sP$ a truth value $\possarg{u}{\defemph{\ttSlide{l}}} \in \bra{0,1}$ and to each agent $\agentSlide{ag} \in \sAG$ a set of \posS\  $\possarg{u}{\agentSlide{ag}} = \sigma$.
+			\end{itemize}
+		\end{block}
+		\onslide<2>{Intuitively ...
+			\begin{itemize}
+				\item[-] The \pos\ \poss{u} is a possible interpretation of the world and of the agents' beliefs
+				\item[-] $\possarg{u}{\defemph{\ttSlide{l}}}$ specifies the truth value of the literal \defemph{\ttSlide{l}}
+				\item[-] $\possarg{u}{\agentSlide{ag}}$ is the set of all the interpretations the agent \agentSlide{ag} considers possible in \poss{u}
+			\end{itemize}
+		}
+	\end{frame}
+}
+
+
+\showCILC{true}{
+	\begin{frame}{From \PosS\ to Kripke Structures}
+		\tikzmark{froma}Considering a \tikzmark{fromg}\pos\tikzmark{fromf}\\
+		\onslide<2->{\hspace*{0.8cm}\tikzmark{fromb}Can be expressed as a \emph{system of equations}\\}
+		\onslide<3->{\hspace*{1.6cm}\tikzmark{fromc}Systems of equations have unique solutions\\}
+		\onslide<4->{\hspace*{2.4cm}\tikzmark{fromd}The solution decorates a \tikzmark{fromh}Kripke structure\tikzmark{frome}}
+		\vfill
+		\vspace*{0.6cm}
+		\begin{columns}[T] % align columns
+			\begin{column}{.2\textwidth}
+				{\only<5>{\color{ForestGreen}}
+					{\only<5>{\color{ForestGreen}}\rule{\linewidth}{1pt}
+						\footnotesize A \pos}
+					%\vspace*{0.8cm}%
+					\begin{center}
+						\hspace*{-0.5cm}%
+						{\scalebox{0.5}{\input{img/possibility_p}}}
+					\end{center}}
+			\end{column}%
+			\hfill%
+			\onslide<2->{\begin{column}{.35\textwidth}
+					{\rule{\linewidth}{1pt}
+						\footnotesize Its system of equation}
+					\begin{center}
+						%\hspace*{-0.6cm}%
+						{\scriptsize $\begin{cases}
+									\poss{w}(\textcolor{NavyBlue}{p}) = 1    & \poss{w}(\textcolor{NavyBlue}{q}) = 0    \\
+									\poss{v}(\textcolor{NavyBlue}{p}) = 1    & \poss{v}(\textcolor{NavyBlue}{q}) = 1    \\
+									\poss{u}(\textcolor{NavyBlue}{p}) = 0    & \poss{u}(\textcolor{NavyBlue}{q}) = 0    \\
+									\poss{w}(\agentSlide{A}) = \{\poss{v}\}  & \poss{w}(\agentSlide{B}) = \{\emptyset\} \\
+									\poss{v}(\agentSlide{A}) = \{\poss{v}\}  & \poss{v}(\agentSlide{B}) = \{\poss{u}\}  \\
+									\poss{u}(\agentSlide{A}) = \{\emptyset\} & \poss{u}(\agentSlide{B}) = \{\emptyset\} \\
+								\end{cases}$
+						}
+					\end{center}
+				\end{column}}%
+			\hfill%
+			\onslide<3->{\begin{column}{.2\textwidth}
+					{\rule{\linewidth}{1pt}
+						\footnotesize The solution}
+					\begin{center}
+						\hspace{-0.4cm}{\scalebox{0.5}{\input{img/possibility_p_sol}}}
+					\end{center}
+				\end{column}}%
+			\hfill%
+			\onslide<4->{\begin{column}{.35\textwidth}
+					{\only<5>{\color{ForestGreen}}
+						{\rule{\linewidth}{1pt}
+							\footnotesize Relative Kripke Structure}
+						\begin{center}
+							{\scalebox{0.6}{\input{img/kripke_p}}}
+						\end{center}
+					}
+				\end{column}}%
+		\end{columns}
+
+		\begin{tikzpicture}[overlay, remember picture]
+			\only<2>{\draw[thick, -Stealth,out=180,in=180,looseness=2, ForestGreen] ($({pic cs:froma})+(-1.5ex,0.5ex)$) to ($({pic cs:fromb})+(-1ex,1.1ex)$);}
+			\onslide<3->{\draw[thick, -Stealth,out=180,in=180,looseness=2] ($({pic cs:froma})+(-1.5ex,0.5ex)$) to ($({pic cs:fromb})+(-1ex,1.1ex)$);}
+			\only<3>{\draw[thick, -Stealth,out=180,in=180,looseness=2, ForestGreen] ($({pic cs:fromb})+(-1.5ex,0.5ex)$) to ($({pic cs:fromc})+(-1ex,1.1ex)$);}
+			\onslide<4->{\draw[thick, -Stealth,out=180,in=180,looseness=2] ($({pic cs:fromb})+(-1.5ex,0.5ex)$) to ($({pic cs:fromc})+(-1ex,1.1ex)$);}
+			\only<4>{\draw[thick, -Stealth,out=180,in=180,looseness=2, ForestGreen] ($({pic cs:fromc})+(-1.5ex,0.5ex)$) to ($({pic cs:fromd})+(-1ex,1.1ex)$);}
+			\onslide<5->{\draw[thick, -Stealth,out=180,in=180,looseness=2] ($({pic cs:fromc})+(-1.5ex,0.5ex)$) to ($({pic cs:fromd})+(-1ex,1.1ex)$);
+				\draw[thick, Stealth-Stealth,out=0,in=0,looseness=2, ForestGreen] ($({pic cs:frome})+(1.5ex,0.5ex)$) to ($({pic cs:fromf})+(1ex,1.1ex)$);
+				\draw[ForestGreen,thick,rounded corners] ($({pic cs:fromh})+(-0.5ex,-0.7ex)$) rectangle ($({pic cs:frome})+(0.5ex,2ex)$);
+				\draw[ForestGreen,thick,rounded corners] ($({pic cs:fromg})+(-0.5ex,-0.7ex)$) rectangle ($({pic cs:fromf})+(0.5ex,2ex)$);}
+		\end{tikzpicture}
+	\end{frame}
+}

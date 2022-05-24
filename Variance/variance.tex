@@ -1,0 +1,335 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%-------------------------------------------------------
+% THEME SETTINGS
+%-------------------------------------------------------
+\usetheme[progressstyle=movingCircCnt]{Feather}
+\setbeamercolor{Feather}{fg=black!30,bg=black}
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{block body example}{bg=black!5!white}
+\setbeamercolor{block title example}{fg=white,bg=black!40!white}
+
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{cite}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{multicol}
+%\usepackage{showframe}
+
+\usepackage{tikz}
+%\usetikzlibrary{patterns}
+\usetikzlibrary{patterns,arrows,decorations.pathmorphing,backgrounds,shadows,positioning,fit,shapes,matrix,calc,shapes.multipart,arrows.meta}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{xpatch} % Needed for patching pgf-umlcd
+\usepackage{xparse} % Needed for patching pgf-umlcd
+\usepackage{color,soul} % for \hl
+\definecolor{dark-yellow}{RGB}{219, 212, 143}
+\definecolor{dark-green}{RGB}{36,84,36}
+\definecolor{my-gray}{gray}{0.85}
+\sethlcolor{dark-yellow}
+
+
+
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{tikz-qtree,tikz-qtree-compat}
+
+\input{macros.tex}
+
+
+\makeatletter
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}}}
+\renewcommand\@makefntext[1]{\@textsuperscript{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}\usebeamerfont*{footnote} #1}
+\makeatother
+
+%Modify the Title display on frame
+\makeatletter
+\patchcmd\beamer@@tmpl@frametitle{\insertframetitle}{{\footnotesize \insertsection~\emphColorSlide{\insertsubsection}~\\} \textbf{\insertframetitle}}{}{}
+\makeatother
+%Add space to the footline
+\makeatletter
+\patchcmd{\beamer@calculateheadfoot}{\advance\footheight by 4pt}{\advance\footheight by 8pt}{}{}
+\makeatother
+
+%NO HEAD LINE
+\makeatletter
+\newenvironment{noheadline}{
+	\setbeamertemplate{headline}[default] {}
+	\setfootline
+}{}
+\makeatother
+
+%Slide with  Section title
+%\AtBeginSection[]{
+%	\begin{noheadline}
+%	\begin{frame}[noframenumbering]
+%			\begin{center}
+%				\large Chapter \thesection \\
+%				\vspace*{1cm}
+%				\centering {\usebeamerfont{title} \huge\textcolor{black}{\insertsectionhead}}
+%				\vspace*{1cm}
+%			\end{center}
+%		\end{frame}
+%	\end{noheadline}
+%}
+
+
+\newcommand{\setfootline}{
+	\setbeamercolor{footline}{fg=white,bg=black}
+	\setbeamertemplate{footline}{%
+		\begin{beamercolorbox}[wd=1.0\paperwidth,left,ht=2.5ex,dp=1ex]{footline}
+			\usebeamerfont{section in head/foot}%
+			\hspace*{3.5ex}%
+			\insertshortauthor\ |\
+			\insertshorttitle
+			\insertshortsubtitle
+		\end{beamercolorbox}
+	}
+	\addtobeamertemplate{footline}{%
+		\setlength\unitlength{1ex}%
+		\begin{picture}(0,0)
+		\put(125,3){\makebox(0,0)[bl]{
+			\includegraphics[scale=0.20]{img/scam.png}
+	}}%
+		\end{picture}%
+	}{}
+}
+
+
+
+
+
+
+%-------------------------------------------------------
+% INFORMATION IN THE TITLE PAGE
+%-------------------------------------------------------
+
+\subtitle[{\color{ForestGreen}\textbf{TAPL}}]
+{
+	\footnotesize{TAPL
+}
+}
+
+\title[] % [] is optional - is placed on the bottom of the sidebar on every slide
+{ % is placed on the title page
+	\textsc{ On Variance-Based Subtyping for Parametric Types
+	 }
+}
+
+
+
+\author[\textbf{Idriss Riouak}]
+{ \emphSlide{Idriss Riouak}}
+
+\institute[]
+{\vspace{1cm}
+	\textbf{Lund University}\\
+	\textbf{Computer Science Department} \\
+}
+
+\date{\today}
+
+\makeatletter
+\newcommand\SoulColor{%
+  \let\set@color\beamerorig@set@color
+  \let\reset@color\beamerorig@reset@color}
+\makeatother
+\SoulColor
+
+\begin{document}
+\setfootline
+
+%-------------------------------------------------------
+% THE TITLEPAGE
+%-------------------------------------------------------
+
+{\1
+\begin{frame}[plain,noframenumbering]
+		\titlepage
+	\end{frame}}
+
+%-------------------------------------------------------
+% BODY
+%-------------------------------------------------------
+\section{Introduction}
+	\begin{frame}[fragile]{Overview}
+		\begin{itemize}
+		\item ECOOP 2002 - Atsushi \textbf{Igarashi} and Mirko \textbf{Viroli}
+		\item Igarashi is one of the authors of \emphSlide{Featherweight Java}
+		\item \textbf{Motivations}
+		\begin{itemize}[<+->]
+			\item Java's designers initially decided to avoid generic features,
+			\item Only inclusive polymorphism supported by inheritance,
+			\item Java5: \emphSlide{$\uparrow$} programmers' productivity; \emphSlide{$\uparrow$} readability; \emphSlide{$\uparrow$}maintainability and \emphSlide{$\uparrow$}safety.
+			\item Not only \textit{inheritance} subtyping but also \emphSlide{pointwise} subtyping
+			\texttt{Stack<X>} \subt\ \texttt{Vector<X>} $\implies$ \texttt{Stack<String>} \subt\ \texttt{Vector<String>}
+		\end{itemize}
+
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Variance}
+		\begin{itemize}[<+->]
+		\item Necessity to introduce another subtyping scheme: \emphSlide{variance}.
+		\item Defines the subtype relation between \textbf{different} instantiations of the \textbf{same} generic class.
+		\item A generic class \code{C<X>} is said to be:
+			\begin{itemize}
+			\item \emphSlide{covariant} w.r.t. \code{X} if $ \forall S,T:  S\subt T \implies \code{C<S>} \subt \code{C<T>}$
+			\item \emphSlide{contravariant} w.r.t. \code{X} if $ \forall S,T:  S\subt T \implies \code{C<T>} \subt \code{C<S>}$
+			\item \emphSlide{invariant} w.r.t. \code{X} if $ \forall S,T:   \code{C<S>} \subt \code{C<T>} \implies  S =  T$
+			\end{itemize}
+		\item For the type system to be \textbf{sound}, \textit{covariance} and \textit{contravariance} are permitted under some constraint on the occurrences of \code{X} within \code{C<X>}' signature:
+			\begin{itemize}
+				\item \emphColorSlide{covariant} if it is read-only
+				\item \emphColorSlide{contravariant} if it is write-only
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+
+
+\begin{frame}[fragile]{Variance example}
+\begin{lstlisting}[language=JastAdd]
+class Pair<X extends Object, Y extends Object> extends Object{
+  private X fst;
+  private Y snd;
+  Pair(X fst,Y snd){ this.fst=fst; this.snd=snd; }
+  void setFst(X fst){ this.fst=fst; }
+  Y getSnd(){ return snd; }
+}
+\end{lstlisting}
+This class can be safely considered
+\begin{itemize}
+\item \textit{covariant} in type variable \code{Y}, and \hfill \textit{read-only}
+\item  \textit{contravariant} in type variable \code{X} \hfill \textit{write-only}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Variance example cont'd}
+
+Any type \code{Pair<R,S>} can be safely considered a subtype of \code{Pair<String,Number>} when \code{R} \supt\ \code{String} and \code{S} \subt\ \code{Number}.
+
+\vspace{1cm}
+
+\begin{lstlisting}[language=JastAdd]
+Number getAndSet(Pair<String,Number> c, String s){
+ c.setFst(s);
+ return c.getSnd();
+}
+
+Number n=getAndSet( new Pair<Object,Integer>(null, new Integer(1)),"1");
+\end{lstlisting}
+
+
+\end{frame}
+
+\begin{frame}[fragile]{Problem}
+The type variables typically occur in such positions that forbid both covariance and contravariance
+\begin{lstlisting}[language=JastAdd]
+class Vector<X>{
+  private X[] ar;
+  Vector(int size){ ar=new X[size];}
+  int size(){ return ar.length; }
+  X getElementAt(int i){ return ar[i];}
+  void setElementAt(X t,int i){ ar[i]=t;}
+}
+\end{lstlisting}
+\end{frame}
+
+	\begin{frame}[fragile]{Variance cont'd}
+The main contribution of the paper:
+		\begin{itemize}
+			\item Specify variance of each type parameter when the type is \emphColorSlide{used}
+			\item Not when the type is \alert{declared}
+			\item This should:
+			\begin{itemize}
+				\item release the class designer from the burden of taking variance into account
+				\item improve reusability.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+\section{Informally}
+
+\begin{frame}[fragile]{Variant Parametric Types}
+Let the programmer specify within parametric types whether the type argument should be \textit{contravariant}, \textit{covariant} or \textit{invariant}
+\begin{itemize}
+	\item Each type parameter may be associated with a \emphColorSlide{variance annotation}
+	\begin{itemize}
+		\item `+': \textit{covariance} \hfill \code{Vector<+String>}
+		\item `-': \textit{contravariant} \hfill \code{Vector<-String>}
+		\item `*': \textit{bivariance} \hfill \code{Vector<*String>} \textit{or} \code{Vector<*>}
+	\end{itemize}
+\item If the outermost parametric type is without annotation then is called \emphColorSlide{invariant}.
+	\begin{itemize}
+		\item \code{Vector<String>}
+		\item \code{Pair<Vector<+String>,Integer>}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Simple interpretation}
+An interpretation of variant parametric types is given as a set of variant types.
+\begin{itemize}
+	\item \code{C<+T>} = $ \{ \code{C<S>}  \mid S \subt T \}$
+	\item \code{C<-T>} = $ \{ \code{C<S>}  \mid S \supt T \}$
+	\item \code{C<*T>} = $ \{ \code{C<S>} \mid \forall\ S \}$ \hfill \code{C<*T>} = \code{C<*>}
+    \item An invariant type correspond to a singleton
+	\begin{itemize}
+	\item  \code{Vector<Integer>} = $\{ \code{Vector<Integer>} \}$
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Subtyping}
+\begin{center}
+ \code{Integer} \subt \code{Number} \subt \code{Object}
+
+\vspace*{0.5cm}
+\includegraphics[scale=0.28]{img/subtype}
+\end{center}
+
+\end{frame}
+
+\section{Type System}
+\begin{frame}{Syntax}
+\includegraphics[scale=0.28]{img/syntax}
+\end{frame}
+\begin{frame}{Auxiliary functions}
+\centering
+\includegraphics[scale=0.20]{img/type1}
+\end{frame}
+\begin{frame}{Judgments}
+\centering
+\includegraphics[scale=0.25]{img/type2}
+\end{frame}
+\begin{frame}{Typing}
+\centering
+\includegraphics[scale=0.25]{img/type3}
+\end{frame}
+
+\begin{frame}{Final check}
+\centering
+\includegraphics[scale=0.25]{img/type4}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

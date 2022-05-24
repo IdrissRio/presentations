@@ -1,0 +1,195 @@
+\section{\mAL\ and \ourL\ comparison}
+	For a more clear comparison we show the execution, on both \mAL\ and \ourL, of the action instances sequence $\Delta_{c} = \distract{C}{A};\open{A};\peek{A}$, that leads to the desired goal, in the domain expressed in Example~\ref{ex:coin_box}.
+	With this we want to give a graphical explanation of both the transition functions and state-space defined by the two languages. Each state in \mAL\ will be represented by a Kripke structure while in \ourL\ will be a \pos\ (expanded to its respective system of equations for clarity).
+	%At the end of each state representation we also give some examples of entailed formulae.
+
+	The observability relations of each action instance in $\Delta_c$ is expressed in the following Table:
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{||c||c|c|c||}
+			\hhline{~|t:===:t|}
+			\multicolumn{1}{c||}{}
+			& \multicolumn{1}{c|}{\phantom{...}\distract{C}{A}\phantom{...}}
+			& \multicolumn{1}{c|}{\phantom{..}\open{A}\phantom{..}}
+			& \multicolumn{1}{c||}{\phantom{...}\peek{A}\phantom{...}}\\
+			\hhline{|t:=::===:|}
+			\multicolumn{1}{||c||}{$F_D$}
+			& \multicolumn{1}{c|}{\agent A, \agent B, \agent C}
+			& \multicolumn{1}{c|}{\agent A, \agent B}
+			& \multicolumn{1}{c||}{\agent A}\\
+			\hhline{||-||-|-|-||}
+			\multicolumn{1}{||c||}{$P_D$}
+			& \multicolumn{1}{c|}{-}
+			& \multicolumn{1}{c|}{-}
+			& \multicolumn{1}{c||}{\agent B}\\
+			\hhline{||-||-|-|-||}
+			\multicolumn{1}{||c||}{$O_D$}
+			& \multicolumn{1}{c|}{-}
+			& \multicolumn{1}{c|}{\agent C}
+			& \multicolumn{1}{c||}{\agent C}\\
+			\hhline{|b:=:b:===:b|}
+		\end{tabular}
+		\label{table-before-distract} 
+		\caption{Observability relations of the actions instances in $\Delta_{c}$.}
+	\end{table}%
+%
+The initial state, based on Example~\ref{ex:coin_box}, is defined by the conditions:
+	\begin{enumerate}[label=]
+		\item \initially{\C(\haskey{A})}
+		\item \initially{\C(\neg \haskey{B})}
+		\item \initially{\C(\neg \haskey{C})}
+		\item \initially{\C(\neg \opened)}
+		\item \initially{\C(\neg \bB{ag}{\head} \wedge \neg \bB{ag}{\neg \head})} for $\agent{ag} \in \bra{\agent{A}, \agent{B}, \agent{C}}$
+		\item \initially{\C(\looking{ag})} for $\agent{ag} \in \bra{\agent{A}, \agent{B}, \agent{C}}$
+		\item \initially{\neg \head}
+	\end{enumerate}
+
+Finally the goal that both the state in Figure~\ref{fig:appendix_peek} entail is expressed with the following formulae:
+\begin{align*}
+&\bB{A}{\neg \head} \wedge \bB{A}{(\bB{B}{(\bB{A}{\head}
+		\vee \bB{A}{\neg \head})})}\\
+&\bB{B}{(\bB{A}{\head}\vee \bB{A}{\neg \head})} \wedge
+(\neg \bB{B}{\head \wedge \neg \bB{B}{\neg \head}})\\
+&\bB{C}[\bigwedge_{\agent{AG} \in \bra{\agent A, \agent B, \agent C}}(\neg\bB{ag}{\head}
+\wedge \neg\bB{ag}{\neg \head}) ]
+%	\state{3}{z_0} &\models\,C_{\bra{\agent A, \agent B}}(\neg\bB{B}{\head} \wedge \neg \bB{B}{\head)}
+\end{align*}
+%
+	\FloatBarrier
+	\subsection*{The plan for Example~\ref{ex:coin_box}}
+		\begin{figure}[H]
+		\centering
+		\hspace*{-3cm}
+			\subfloat[The initial Kripke structure \state{0}{s_0}.]
+			{%
+				\scalebox{.8}%
+				{%
+					\raisebox{0.5cm}{
+						\input{img/initial_state_kripke}
+					}%
+				}%
+				\label{subfig-kripke:appendix_initial}
+			}%
+		\hspace*{.5cm}
+			\subfloat[The initial \pos\ \poss{u}.]
+			{% 
+				\scalebox{0.95}%
+				{%
+					\raisebox{1.5cm}{
+						\input{img/initial_state_soe}
+					}%
+				}%
+				\label{subfig-poss:appendix_initial}%
+			}
+			\caption{The initial state.}
+			\label{fig:appendix_initial}
+		\end{figure}%
+%
+		\begin{figure}[H]
+			\centering
+			\hspace*{-3cm}
+			\subfloat[The Kripke stucture \state{1}{p_0}, obtained after the execution of \distract{C}{A}
+			in \state{0}{s_0} (Figure~\ref{subfig-kripke:appendix_initial}).]
+			{%
+				\scalebox{.8}%
+				{%
+					\raisebox{0.5cm}{
+						\input{img/distract_state_kripke}
+					}%
+				}%
+				\label{subfig-kripke:appendix_distract}
+			}%
+			\hspace*{.5cm}
+			\subfloat[\Pos\ \poss{v}, obtained after the execution of \distract{C}{A} in
+			\poss{u} (Figure~\ref{subfig-poss:appendix_initial}).]
+			{%
+				\scalebox{0.95}%
+				{%
+					\raisebox{1.5cm}{
+						\input{img/distract_state_soe}
+					}%
+				}%
+				\label{subfig-poss:appendix_distract}%
+			}
+			\caption{Execution of \distract{C}{A}.}
+			\label{fig:appendix_distract}
+		\end{figure}%
+%
+		\begin{figure}[H]
+			\centering
+			\hspace*{-4cm}
+			\subfloat[The Kripke stucture \state{2}{q_0}, obtained after the execution of \open{A}
+			in \state{1}{p_0} (Figure~\ref{subfig-kripke:appendix_distract}).]
+			{%
+				\scalebox{.7}%
+				{%
+					\raisebox{0.0cm}{
+						\input{img/open_state_kripke}
+					}%
+				}%
+				\label{subfig-kripke:appendix_open}
+			}%
+			\hspace*{.5cm}
+			\subfloat[\Pos\ \poss{w}, obtained after the execution of \open{A} in
+			\poss{v} (Figure~\ref{subfig-poss:appendix_distract}).]
+			{%
+				\scalebox{0.95}%
+				{%
+					\raisebox{3.6cm}{
+						\input{img/open_state_soe}
+					}%
+				}%
+				\label{subfig-poss:appendix_open}%
+			}
+			\caption{Execution of \open{A}.}
+			\label{fig:appendix_open}
+		\end{figure}%
+%
+		\begin{figure}[H]
+			%\centering
+			\hspace*{-4cm}
+			\subfloat[The Kripke structure \state{3}{q_0}, obtained after the execution of \peek{A} in \state{2}{q_0}.]
+			{%
+				\scalebox{.7}%
+				{%
+					\raisebox{0.0cm}{
+						\input{img/peek_state_kripke}
+					}%
+				}%
+				\label{subfig-kripke:appendix_peek}
+			}%
+			\hspace*{.5cm}
+			\subfloat[\Pos\ \poss{z}, obtained after the execution of \peek{A} in
+			\poss{w} (Figure~\ref{subfig-poss:appendix_open}).]
+			{% 
+				\scalebox{0.95}%
+				{%
+					\raisebox{3.6cm}{
+						\input{img/peek_state_soe}
+					}%
+				}%
+				\label{subfig-poss:appendix_peek}%
+			}
+			\caption{Execution of \peek{A}.}
+			\label{fig:appendix_peek}
+		\end{figure}%
+%	
+%		Both the state in Figure~\ref{fig:appendix_peek} entail the desired goal that is expressed with the following formulae:
+%		\begin{align*}
+%			&\bB{A}{\neg \head} \wedge \bB{A}{(\bB{B}{(\bB{A}{\head}
+%				\vee \bB{A}{\neg \head})})}\\
+%			&\bB{B}{(\bB{A}{\head}\vee \bB{A}{\neg \head})} \wedge
+%			(\neg \bB{B}{\head \wedge \neg \bB{B}{\neg \head}})\\
+%			&\bB{C}[\bigwedge_{\agent{AG} \in \bra{\agent A, \agent B, \agent C}}(\neg\bB{ag}{\head}
+%			\wedge \neg\bB{ag}{\neg \head}) ]
+%		%	\state{3}{z_0} &\models\,C_{\bra{\agent A, \agent B}}(\neg\bB{B}{\head} \wedge \neg \bB{B}{\head)}
+%		\end{align*}
+%		\begin{align*}
+%			\state{3}{z_0} &\models \bB{A}{\neg \head} \wedge \bB{A}{(\bB{B}{(\bB{A}{\head}
+%					\vee \bB{A}{\neg \head})})}\\
+%			\state{3}{z_0} &\models \bB{B}{(\bB{A}{\head}\vee \bB{A}{\neg \head})} \wedge
+%			(\neg \bB{B}{\head \wedge \neg \bB{B}{\neg \head}})\\
+%			\state{3}{z_0} &\models \bB{C}[\bigwedge_{\agent{AG} \in \bra{\agent A, \agent B, \agent C}}(\neg\bB{ag}{\head}
+%			\wedge \neg\bB{ag}{\neg \head}) ]
+%		%	\state{3}{z_0} &\models\,C_{\bra{\agent A, \agent B}}(\neg\bB{B}{\head} \wedge \neg \bB{B}{\head)}
+%		\end{align*}

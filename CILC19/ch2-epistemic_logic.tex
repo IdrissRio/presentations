@@ -1,0 +1,149 @@
+In this section we will briefly introduce the background that is necessary to understand \mAGep\ reasoning.
+As defined in~\cite{van2007dynamic,gerbrandy1999bisimulations}, where the concept of multi-agent propositional epistemic logic is fully explored, the epistemic
+logic is the logic of \emph{knowledge} and \emph{belief} that different agents
+have about the world and about the beliefs of each other.
+%: in these two works the concept of multi-agent propositional epistemic logic is fully explored and, therefore, we take these two works as base for our explanation.
+
+Let \sAG\ be a set of  agents and let \sF\ be a set of propositional variables, called \emph{fluents}. 
+We have that each \emph{world} is described by a
+subset of elements of \sF\ (intuitively, those that are \textquotedblleft true" in the world); we also refer to each world as an \emph{interpretation}.
+% We have that a state is represented by a consistent collection of worlds.
+For each agent $\agent{ag} \in \sAG$ we associate a modal operator \b{ag}
+(where $\mathbf{B}$ stands for belief) and we represent the beliefs of an agent
+as belief formulae in a logic extended with these operators.
+Moreover, \emph{group operators} are also introduced in epistemic logic, such as
+\eAlpha\ and \cAlpha, that intuitively represent the belief of a group of agents $\alpha$ and
+the \ck\ of $\alpha$ respectively.
+To be more precise, as in~\cite{baral2015action}, we have that
+\begin{definition}[fluent formulae, atoms and literals] \label{def:fluent_formula}
+  A \emph{fluent formula} is a propositional formula built using the propositional
+  variables in \sF\ and the traditional propositional operators
+  $\wedge,\vee,\implies,\neg,$ etc. We will use $\top$ and $\bot$ to indicate
+  \emph{True} and \emph{False}, respectively.
+%\end{definition}
+%\begin{definition}[fluent atom and literal]
+  A \emph{fluent atom} is a formula composed by just an element $\defemph{f} \in \sF$, instead
+  a \emph{fluent literal} is either a fluent atom $\defemph{f} \in \sF$ or its negation $\neg \defemph{f}$.
+\end{definition}
+
+\begin{definition}[belief formula] \label{def:belief_formula}
+  A \emph{belief formula} is defined as follow:
+  \begin{itemize}
+  \item A fluent formula is a belief formula;
+  \item let $\varphi$ be belief formula and $\agent{ag} \in \sAG$, then  $\bB{ag}{\varphi}$ is a belief
+  formula;
+  \item let $\varphi_1, \varphi_2$ and $\varphi_3$ be belief formulae,
+  then $\neg \varphi_3$ and $\varphi_1 \,\mathtt{op}\, \varphi_2$ are belief
+  formulae, where $\mathtt{op} \in \bra{\wedge,\vee, \implies}$;
+  \item all the formulae of the form \eAlpha{\varphi} or \cAlpha{\varphi}
+  are belief formulae, where $\varphi$ is itself a belief formula and
+  $\emptyset \neq \alpha \subseteq \sAG$.
+  \end{itemize}
+\end{definition}
+Let us denote with \lagC\ the language of the belief formulae over the
+sets $\sF$ and $\sAG$.
+On the other hand we define \lag\ as the language over beliefs formulae that
+does not allow the use of   \C.
+In~\cite{fagin1994reasoning}, it is pointed out how these two languages differ
+in expressiveness and in complexity.
+%Referring to Table~\ref{table:complexity} $\mathcal{L}_1$ describes single-agent
+%domains; \lag\ the language to reason in multi-agent domains without
+%\ck, and finally \lagC\ allows to represent a \mep\
+%problem with \ck.
+%
+%\begin{table}
+%	\centering
+%	\begin{tabular}{||c|c|c||}
+%		\hhline{|t:===:t|}
+%		\multicolumn{1}{||c|}{\phantom{...}$\calL_1$\phantom{...}}
+%		& \multicolumn{1}{c|}{\phantom{...}$\lAG$ where $|\sAG| \geq 2 $\phantom{...}}
+%		& \multicolumn{1}{c||}{\phantom{...}$\lagC$ where $|\sAG|\geq 2$\phantom{...}}\\
+%		\hhline{||-|-|-||}
+%		\multicolumn{1}{||c|}{NP-complete}
+%		& \multicolumn{1}{c|}{PSPACE-complete}
+%		& \multicolumn{1}{c||}{EXPTIME-complete}\\
+%		\hhline{|b:===:b|}
+%	\end{tabular}
+%	\caption{\label{table:complexity}Complexity of satisfiability problem for logics of knowledge~\cite{fagin1994reasoning}.}
+%\end{table}
+
+\begin{example}
+Let us consider the formula $\bB{ag_1}{\bB{ag_2}{\varphi}}$. This formula expresses that
+the agent \agent{ag_1} believes that the agent \agent{ag_2} believes that $\varphi$ is true, instead,
+$\bB{ag_1}\neg \varphi$ expresses that the agent \agent{ag_1} believes that $\varphi$ is false.
+\end{example}
+The classical way of providing a semantics for the language of epistemic logic is in terms
+of Kripke models~\cite{Kripke1963-KRISCO}:
+%$\mAL$ use the Kripke structures to reasoning about the environment
+\begin{definition}[Kripke structure]
+  A \emph{Kripke structure} is a tuple \tuple{S, \pi, \brel{1},$\dots$ , \brel{n}}, such that:
+  \begin{itemize}
+  \item S is a set of worlds;
+  \item $\func{\pi}{S}{2^{\sF}}$ is a function that associates an interpretation
+  of \sF\ to each element of S; %(namely the subset of fluents $\top$ in each world);
+  \item for $1 \leq \defemph{i} \leq \defemph{n}$, $\brel{i} \subseteq S \times S$  is a binary relation over S.
+  \end{itemize}
+\end{definition}
+%
+A \emph{pointed Kripke structure} is a pair \state{}{s} where M is a Kripke structure
+as defined above, and $\defemph{s} \in S$, where $\defemph{s}$ represents the real world.
+As in~\cite{baral2015action}, we will refer to a pointed Kripke structure
+\state{}{s} as a \emph{state}.
+
+Following the notation of~\cite{baral2015action}, we will indicate with
+$M[S], M[\pi],$ and $M[\defemph{i}]$ the components $S,\pi$, and $\brel{i}$ of $M$,
+respectively.
+
+
+\begin{definition}[entailment w.r.t. a Kripke structure]
+Given the belief formulae
+$\varphi,\varphi_{1},\varphi_{2}$, an agent \agent{ag_i}, a group of agents $\alpha$, a Kripke structure $M = \tuple{S, \pi, \brel{1}, ..., \brel{n}}$, and the worlds \defemph{s},$\defemph{t} \in S$:
+\begin{enumerate}[label= \emph{(}\roman*\emph{)}]
+\item $\state{}{s} \models \varphi$ if $\varphi$ is a fluent formula and $\pi(\defemph{s})
+\models \varphi$;
+\item $\state{}{s} \models \bB{ag_i}{\varphi}$ if for each \defemph{t} such that
+$\defemph{(s,t)} \in \brel{i}$ it holds that $ \state{}{t} \models \varphi$;
+\item $\state{}{s} \models \neg \varphi$ if $\state{}{s} \not\models \varphi$;
+\item $\state{}{s} \models \varphi_1 \vee \varphi_2$ if $\state{}{s}\models
+\varphi_1$ or $\state{}{s}\models \varphi_2$;
+\item $\state{}{s} \models \varphi_1 \wedge \varphi_2$ if $\state{}{s}\models
+\varphi_1$ and $\state{}{s}\models \varphi_2$;
+\item $\state{}{s} \models \eAlpha{\varphi}$ if $\state{}{s} \models
+\bB{ag_i}{\varphi}$ for all \agent{ag_i} $\in \alpha$;
+\item $\state{}{s} \models \cAlpha{\varphi}$ if
+$\state{}{s} \models \eAlphaIter{k}{\varphi}$ for every
+  $k\geq0$, where $\eAlphaIter{0}{\varphi} = \varphi$ and
+$\eAlphaIter{k+1}{\varphi} =\eAlpha{(\eAlphaIter{k}{\varphi})}$.
+\end{enumerate}
+\end{definition}
+
+%Given a Kripke structure $M = \tuple{S,\pi,\brel{1},...,\brel{n}}$,
+%for all $\defemph{i} \in \sAG$, we are interested in the following properties:
+%\begin{itemize}
+%\item[\textbf{K}:] $\forall \varphi, \psi\in \lagC:
+%M \models ( \bB{ag_i}{\varphi} \wedge  \bB{ag_i}{(\varphi \implies \psi)})
+%\implies \bB{ag_i}{\psi}$
+%
+%\item[\textbf{T}:] $\forall \varphi\in \lagC:
+%M \models  \bB{ag_i}{\varphi} \implies \varphi$
+%
+%\item[\textbf{4}:] $\forall \varphi\in \lagC:
+%M \models  \bB{ag_i}{\varphi} \implies \bB{ag_i}{\bB{ag_i}{\varphi}}$
+%
+%\item[\textbf{5}:] $\forall \varphi\in \lagC:
+%M \models  \neg\bB{ag_i}{\varphi} \implies \bB{ag_i}{\neg\bB{ag_i}{\varphi}}$
+%
+%\item[\textbf{T}:] $M \models \neg \bB{ag_i}{\bot}$
+%\end{itemize}
+%A Kripke structure is said to be a \textbf{S5} structure if it satisfies
+%all the properties \textbf{K, T, 4, 5,} and \textbf{D}.
+
+%\begin{definition}
+%  A state $\state{1}{s}$ is equivalent to a state $\state{2}{t}$
+%  if $\ \forall \varphi\in \lAG:\state{1}{s}\models \varphi$ iff
+%  $\state{2}{t} \models \varphi$.
+%\end{definition}
+
+We will no further describe the properties of the Kripke structures
+since those are not strictly needed to describe the contribution of this
+paper. The reader who has interest in a more detailed description can refer to~\cite{fagin1994reasoning}.
