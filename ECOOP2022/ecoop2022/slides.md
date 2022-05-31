@@ -54,7 +54,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 # Example Dataflow-based analyses
 
 <div  grid="~ cols-2 gap-2" m="-t-2">
-```java {all|2|4|all}
+```java {all}
 void foo(boolean b){
   String x = null;
   if(b) x = "Hello World";
@@ -69,17 +69,17 @@ void foo(boolean b){
 
 <br>
 <br>
-<p v-click="2">
+<p v-click="1">
 ⚠️ Possible <code style="color:red">NullPointerException</code> at line 4
 </p>
 
-<arrow v-click="2"  x1="600" y1="200" x2="260" y2="200" color="red" width="1.5" arrowSize="1" />
+<arrow v-click="1"  x1="600" y1="200" x2="260" y2="200" color="red" width="1.5" arrowSize="1" />
 
 </div>
 </div>
 
-<div  v-click="4" grid="~ cols-2 gap-2" m="-t-2">
-```java {1|2-8|3-6|8|all}
+<div  v-click="2" grid="~ cols-2 gap-2" m="-t-2">
+```java {all}
 private int hash = 0;
 int hashFunc(){
   if(hash==0){
@@ -100,13 +100,14 @@ int hashFunc(){
 
 <br><br>
 
-<p v-click="7">
+<p v-click="3">
 ⚠️ <code style="color:red">Dead Assignment</code> at line 6. The value of <code style="color:red">hash</code> is never read.
 </p>
-<arrow v-click="7"  x1="600" y1="400" x2="260" y2="400" color="red" width="1.5" arrowSize="1" />
+<arrow v-click="3"  x1="600" y1="400" x2="260" y2="400" color="red" width="1.5" arrowSize="1" />
 </div>
 
 </div>
+
 <!--
 You can have `style` tag in markdown to override the style for the current page.
 Learn more: https://sli.dev/guide/syntax#embedded-styles
@@ -114,10 +115,53 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 ---
 
+
 # The big picture
 
-<img  border="rounded" style="top:70px;position:relative;width:120%"  src="imgs/overview.svg">
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview.svg">
 
+---
+
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview1.svg">
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview2.svg">
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview3.svg">
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview4.svg">
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview6.svg">
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview5.svg">
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview8.svg">
 
 ---
 
@@ -141,41 +185,6 @@ void foo(boolean b){
 
 ---
 
-# Reference Attribute Grammars 
-
-
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST2.svg">
-
----
-
-# Reference Attribute Grammars 
-
-
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST3.svg">
-
----
 
 
 
@@ -341,7 +350,6 @@ void foo(boolean b){
 
 
 
-
 # Reference Attribute Grammars 
 
 <div  grid="~ cols-2 gap-2" m="-t-2">
@@ -373,14 +381,15 @@ void foo(boolean b){
 ```
 
 * JastAdd ecosystem
-   * Ondemand evaluation
-   * Mutually dependent properties
-   * Add subtree to the AST
+   * On-demand evaluation
+   * Fix point computation
+   * Higher-Order Attibutes
+  
 <img  border="rounded" style="top:0px;left:0px;position:relative;width:30%;border: 2px solid #66d390;"  src="imgs/jastadd.png">
 
 </div>
 </div>
-<img  border="rounded" style="top:-307.5px;left:150px;position:relative;width:100%"  src="imgs/AST14.svg">
+<img  border="rounded" style="top:-311px;left:150px;position:relative;width:100%"  src="imgs/AST14.svg">
 
 ---
 
@@ -442,7 +451,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA3.svg">
+<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA.svg">
 
 ---
 
@@ -460,156 +469,54 @@ void foo(boolean b){
 ```
 </div>
 <img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA1.svg">
-
-
-
-
+<img  border="rounded" style="top:200px;left:50px;position:absolute;width:25%"  src="imgs/NPA2.svg">
 
 ---
 
-# Null Pointer Analysis
+# The big picture, again
 
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA4.svg">
-
-
----
-
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA5.svg">
-
-
----
-
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA6.svg">
+<img  border="rounded" style="top:0px;left:10px;position:relative;width:120%"  src="imgs/Overview9.svg">
 
 ---
 
 
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA7.svg">
-
-
----
-
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA8.svg">
-
-
----
-
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA9.svg">
-
----
-
-
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA10.svg">
-
-
-
-
-
-
-
-
----
-
-# The big picture
-
-<img  border="rounded" style="top:70px;position:relative;width:120%"  src="imgs/overview.svg">
-
----
 
 # IntraJ Plugin
 
+Everything is computed on-demand as a property:
+  * Source Location information
+  * Suggested fix
+  * Related information
 
-* Credits:
-  * Plugin V 0.1 made by Charlie Mrad (Master Student @ LU)
 
+
+Everything you have to to do:
+
+```java
+public class NPA extends CodeAnalysis {
+  public String getName() { return "NPA"; }
+  protected Set<Warning> getWarnings(CompilationUnit cu) 
+    { return cu.NPA(); }  //<--  Property triggered by the analysis
+}
+```
+
+```java
+activeAnalyses.put(new NPA(), true); //Register the analysis
+```
+
+* Plugin V 0.0.1 made by Charlie Mrad (Master Student @ LU)
+
+
+
+---
+
+# Demo
 * Live demo:
   * Null Pointer Analysis
+    * Quick fixes
+    * Bug explanation
   * Dead Assignment Analysis
-* The role of MagpieBridge:
-  * Integration with VSCode
-  * Extension settings
+    * Activate/Disable more precise analyses
 
 
 
@@ -730,3 +637,15 @@ NullPointerAnalysis: SonarQube is more precise but IntraJ remains competitive
 1. No dealy in the previous demo
 
 <img border="rounded"  src="imgs/performance.png">
+
+
+
+---
+
+# IntraJ - A use case
+
+
+<iframe
+  src="http://localhost:8000/?editor=Monaco&fullscreen=true&&hideModals=false"
+  style="width:100%; height:200px;">
+</iframe>
