@@ -118,7 +118,7 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 # The big picture
 
-<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview.svg">
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview0.svg">
 
 ---
 
@@ -149,13 +149,14 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 # The big picture
 
-<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview6.svg">
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview5.svg">
 
 ---
 
+
 # The big picture
 
-<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview5.svg">
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview7.svg">
 
 ---
 
@@ -165,6 +166,35 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 ---
 
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview8.0.1.svg">
+
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview8.1.svg">
+
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview9.svg">
+
+
+
+---
+
+# The big picture
+
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview10.svg">
+
+
+---
+
 # Reference Attribute Grammars 
 
 
@@ -179,7 +209,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST1.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST1.svg">
 
 
 
@@ -201,7 +231,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST5.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST5.svg">
 
 ---
 
@@ -218,7 +248,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST6.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST6.svg">
 
 ---
 
@@ -240,7 +270,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST8.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST8.svg">
 
 
 
@@ -259,7 +289,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST9.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST9.svg">
 
 
 
@@ -278,7 +308,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST10.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST10.svg">
 
 ---
 
@@ -294,7 +324,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST7.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST7.svg">
 
 
 ---
@@ -310,7 +340,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST11.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST11.svg">
 
 ---
 
@@ -326,25 +356,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST12.svg">
-
----
-
-
-
-# Reference Attribute Grammars 
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST13.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST12.svg">
 
 ---
 
@@ -362,7 +374,25 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/AST14.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST13.svg">
+
+---
+
+
+
+# Reference Attribute Grammars 
+
+<div  grid="~ cols-2 gap-2" m="-t-2">
+
+```java
+void foo(boolean b){
+  String x = null;
+  if(b) x = "Hello World";
+  x.toString();
+}
+```
+</div>
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST14.svg">
 
 ---
 
@@ -389,7 +419,7 @@ void foo(boolean b){
 
 </div>
 </div>
-<img  border="rounded" style="top:-311px;left:150px;position:relative;width:100%"  src="imgs/AST14.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/AST14.svg">
 
 ---
 
@@ -405,7 +435,7 @@ void foo(boolean b){
 <div>
 
 * Builds the CFGs on the AST
-* Handles implicit control-flows
+* Handles **_implicit control-flows_**
 * Analyses competitive with existing tools e.g., **_SonarQube_**
 
 <br>
@@ -451,7 +481,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/NPA.svg">
 
 ---
 
@@ -468,7 +498,7 @@ void foo(boolean b){
 }
 ```
 </div>
-<img  border="rounded" style="top:-150px;left:150px;position:relative;width:100%"  src="imgs/NPA1.svg">
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/NPA1.svg">
 <img  border="rounded" style="top:200px;left:50px;position:absolute;width:25%"  src="imgs/NPA2.svg">
 
 ---
@@ -479,44 +509,25 @@ void foo(boolean b){
 
 ---
 
+# The big picture, again
 
+<img  border="rounded" style="top:0px;left:10px;position:relative;width:120%"  src="imgs/Overview12.svg">
 
-# IntraJ Plugin
+---
 
-Everything is computed on-demand as a property:
-  * Source Location information
-  * Suggested fix
-  * Related information
+# Zoom-in
 
-
-
-Everything you have to to do:
-
-```java
-public class NPA extends CodeAnalysis {
-  public String getName() { return "NPA"; }
-  protected Set<Warning> getWarnings(CompilationUnit cu) 
-    { return cu.NPA(); }  //<--  Property triggered by the analysis
-}
-```
-
-```java
-activeAnalyses.put(new NPA(), true); //Register the analysis
-```
-
-* Plugin V 0.0.1 made by Charlie Mrad (Master Student @ LU)
-
+<img  border="rounded" style="top:-500px;left:70px;position:relative;width:96%"  src="imgs/ZoomIn.svg">
 
 
 ---
 
+
+
+
 # Demo
-* Live demo:
-  * Null Pointer Analysis
-    * Quick fixes
-    * Bug explanation
-  * Dead Assignment Analysis
-    * Activate/Disable more precise analyses
+
+What we have been able to achive with IntraJ + MagpieBridge 
 
 
 
@@ -531,6 +542,42 @@ activeAnalyses.put(new NPA(), true); //Register the analysis
 
 ---
 
+# Overall experience
+
+* Intuitive and easy to use
+* Concise specification of the server
+* Well documented
+* With the scaffolding we provide, adding support for a new analysis is trivial:
+
+
+```java
+public class YourAnalysis extends CodeAnalysis {
+  public String getName() { return "YourAnalysis"; }
+  protected Set<Warning> getWarnings(CompilationUnit cu) 
+    { return cu.yourAnalysis(); }  //<--  Property triggered by the analysis
+}
+```
+
+```java
+activeAnalyses.put(new YourAnalysis(), true); //Register the analysis
+```
+
+* Plugin V 0.0.1 made by Charlie Mrad (Master Student @ LU)
+
+
+
+---
+
+# Looking forward
+## Not only warnings
+
+<br>
+
+<img  border="rounded" style="top:0px;left:100px;position:relative;width:80%;border: 2px solid #66d390;"  src="imgs/clangStaticAnalyzer.png">
+
+
+---
+
 # Thank you for your attention !
 
 <div  grid="~ cols-3 gap-2" m="-t-2">
@@ -540,8 +587,8 @@ activeAnalyses.put(new NPA(), true); //Register the analysis
 
 <br><br><br>
 
-<img  border="rounded" style="top:0px;left:100px;position:relative;width:60%;border: 2px solid #66d390;"  src="imgs/qr-code.svg">
-<h2 style="position:relative; left:130px">GitHub</h2>
+<img  border="rounded" style="top:0px;left:50px;position:relative;width:60%;border: 2px solid #66d390;"  src="imgs/qr-code.svg">
+<h2 style="position:relative; left:80px">GitHub</h2>
 </div>
 
 <div>
@@ -549,8 +596,8 @@ activeAnalyses.put(new NPA(), true); //Register the analysis
 
 <br><br><br>
 
-<img  border="rounded" style="top:0px;left:100px;position:relative;width:60%;border: 2px solid #66d390;"  src="imgs/paper.svg">
-<h2 style="position:relative; left:140px">Paper</h2>
+<img  border="rounded" style="top:0px;left:50px;position:relative;width:60%;border: 2px solid #66d390;"  src="imgs/paper.svg">
+<h2 style="position:relative; left:90px">Paper</h2>
 </div>
 
 <div>
@@ -558,8 +605,8 @@ activeAnalyses.put(new NPA(), true); //Register the analysis
 
 <br><br><br>
 
-<img  border="rounded" style="top:0px;left:100px;position:relative;width:60%;border: 2px solid #66d390;"  src="imgs/vscoderepo.svg">
-<h2 style="position:relative; left:115px">Extension</h2>
+<img  border="rounded" style="top:0px;left:50px;position:relative;width:60%;border: 2px solid #66d390;"  src="imgs/vscoderepo.svg">
+<h2 style="position:relative; left:65px">Extension</h2>
 </div>
 
 
