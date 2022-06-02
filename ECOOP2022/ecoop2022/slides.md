@@ -118,19 +118,6 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 # The big picture
 
-<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview0.svg">
-
----
-
-
-# The big picture
-
-<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview1.svg">
-
----
-
-# The big picture
-
 <img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview2.svg">
 
 ---
@@ -149,9 +136,10 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 # The big picture
 
-<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview5.svg">
+<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview4.1.svg">
 
 ---
+
 
 
 # The big picture
@@ -164,12 +152,6 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 <img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview8.svg">
 
----
-
-# The big picture
-
-<img  border="rounded" style="top:0px;position:relative;width:120%"  src="imgs/Overview8.0.1.svg">
-
 
 ---
 
@@ -179,6 +161,8 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 
 ---
+
+
 
 # The big picture
 
@@ -509,15 +493,67 @@ void foo(boolean b){
 
 ---
 
-# The big picture, again
-
-<img  border="rounded" style="top:0px;left:10px;position:relative;width:120%"  src="imgs/Overview12.svg">
-
----
 
 # Zoom-in
 
-<img  border="rounded" style="top:-500px;left:70px;position:relative;width:96%"  src="imgs/ZoomIn.svg">
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn3.svg">
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn4.svg">
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn5.svg">
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn6.svg">
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn7.svg">
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn8.svg">
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn9.svg">
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn10.svg">
+
+
+---
+
+
+# Zoom-in
+
+<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn.svg">
 
 
 ---
@@ -525,10 +561,28 @@ void foo(boolean b){
 
 
 
-# Demo
+# Example: quick fix
 
-What we have been able to achive with IntraJ + MagpieBridge 
 
+<video style="top:-20px;position:relative" width="800"  controls autoplay>
+  <source src="imgs/NullPointer.mov" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+
+
+---
+
+
+
+
+# Example: bug explanation
+
+
+<video style="top:-20px;position:relative" width="800"  controls autoplay>
+  <source src="imgs/FOP.mov" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 
 ---
@@ -568,7 +622,7 @@ activeAnalyses.put(new YourAnalysis(), true); //Register the analysis
 
 ---
 
-# Looking forward
+# Looking forward for ...
 ## Not only warnings
 
 <br>
