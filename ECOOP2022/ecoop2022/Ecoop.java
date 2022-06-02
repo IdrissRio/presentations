@@ -1,11 +1,8 @@
-public class Ecoop {
-
-  void foo() {
-    Integer x = 2;
-    Integer y = 3;
-    x = y;
-    y = x;
-    x = null;
+public class Pride {
+  void foo(boolean b) {
+    String x = null;
+    if (b)
+      x = "Hello PRIDE!";
     x.toString();
   }
 }
