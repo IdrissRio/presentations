@@ -53,8 +53,9 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 # Example Dataflow-based analyses
 
-<div  grid="~ cols-2 gap-2" m="-t-2">
-```java {all}
+<div   v-click="1" grid="~ cols-2 gap-2" m="-t-2">
+
+```java
 void foo(boolean b){
   String x = null;
   if(b) x = "Hello World";
@@ -69,17 +70,18 @@ void foo(boolean b){
 
 <br>
 <br>
-<p v-click="1">
+<p v-click="2">
 ⚠️ Possible <code style="color:red">NullPointerException</code> at line 4
 </p>
 
-<arrow v-click="1"  x1="600" y1="200" x2="260" y2="200" color="red" width="1.5" arrowSize="1" />
+<arrow v-click="2"  x1="600" y1="200" x2="260" y2="200" color="red" width="1.5" arrowSize="1" />
 
 </div>
 </div>
 
-<div  v-click="2" grid="~ cols-2 gap-2" m="-t-2">
-```java {all}
+<div  v-click="3" grid="~ cols-2 gap-2" m="-t-2">
+
+```java
 private int hash = 0;
 int hashFunc(){
   if(hash==0){
@@ -100,10 +102,10 @@ int hashFunc(){
 
 <br><br>
 
-<p v-click="3">
+<p v-click="4">
 ⚠️ <code style="color:red">Dead Assignment</code> at line 6. The value of <code style="color:red">hash</code> is never read.
 </p>
-<arrow v-click="3"  x1="600" y1="400" x2="260" y2="400" color="red" width="1.5" arrowSize="1" />
+<arrow v-click="4"  x1="600" y1="400" x2="260" y2="400" color="red" width="1.5" arrowSize="1" />
 </div>
 
 </div>
@@ -397,7 +399,7 @@ void foo(boolean b){
 * JastAdd ecosystem
    * On-demand evaluation
    * Fix point computation
-   * Higher-Order Attibutes
+   * Higher-Order Attributes
   
 <img  border="rounded" style="top:0px;left:0px;position:relative;width:30%;border: 2px solid #66d390;"  src="imgs/jastadd.png">
 
@@ -410,6 +412,45 @@ void foo(boolean b){
 
 
 
+
+
+
+
+
+
+# Null Pointer Analysis
+
+<div  grid="~ cols-2 gap-2" m="-t-2">
+
+```java
+void foo(boolean b){
+  String x = null;
+  if(b) x = "Hello World";
+  x.toString();
+}
+```
+</div>
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/NPA.svg">
+
+---
+
+
+# Null Pointer Analysis
+
+<div  grid="~ cols-2 gap-2" m="-t-2">
+
+```java
+void foo(boolean b){
+  String x = null;
+  if(b) x = "Hello World";
+  x.toString();
+}
+```
+</div>
+<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/NPA1.svg">
+<img  border="rounded" style="top:200px;left:50px;position:absolute;width:25%"  src="imgs/NPA2.svg">
+
+---
 
 
 
@@ -450,41 +491,6 @@ void foo(boolean b){
 </div>
 
 </div>
----
-
-
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/NPA.svg">
-
----
-
-
-# Null Pointer Analysis
-
-<div  grid="~ cols-2 gap-2" m="-t-2">
-
-```java
-void foo(boolean b){
-  String x = null;
-  if(b) x = "Hello World";
-  x.toString();
-}
-```
-</div>
-<img  border="rounded" style="top:-470px;left:150px;position:relative;width:100%"  src="imgs/NPA1.svg">
-<img  border="rounded" style="top:200px;left:50px;position:absolute;width:25%"  src="imgs/NPA2.svg">
-
 ---
 
 # The big picture, again
@@ -553,7 +559,7 @@ void foo(boolean b){
 
 # Zoom-in
 
-<img  border="rounded" style="top:0px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn.svg">
+<img  border="rounded" style="top:-200px;left:70px;position:relative;width:100%"  src="imgs/ZoomIn.svg">
 
 
 ---
@@ -561,15 +567,18 @@ void foo(boolean b){
 
 
 
-# Example: quick fix
+# Example: quick fix (warning)
 
 
-<video style="top:-20px;position:relative" width="800"  controls autoplay>
-  <source src="imgs/NullPointer.mov" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+<img  border="rounded" style="top:-470px;left:20px;position:relative;width:70%"  src="imgs/warning.png">
+
+---
+
+# Example: quick fix 
 
 
+
+<img  border="rounded" style="top:-470px;left:20px;position:relative;width:70%"  src="imgs/fix.png">
 
 ---
 
@@ -579,10 +588,8 @@ Your browser does not support the video tag.
 # Example: bug explanation
 
 
-<video style="top:-20px;position:relative" width="800"  controls autoplay>
-  <source src="imgs/FOP.mov" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+<img  border="rounded" style="top:-470px;left:20px;position:relative;width:95%"  src="imgs/apachefop.png">
+
 
 
 ---
@@ -620,6 +627,26 @@ activeAnalyses.put(new YourAnalysis(), true); //Register the analysis
 
 
 
+---
+
+# On-demand evaluation
+
+We are able to run analyeses on-demand 👍
+
+
+<img  border="rounded" style="top:0px;left:100px;position:relative;width:80%;border: 2px solid #66d390;"  src="imgs/results.svg">
+
+
+But we construct all *fixes* and *motivations* ahead-of-time because
+
+  * Hover 
+  * CodeLens
+  
+are not exposed to **ServerAnalysis**
+
+
+  
+ 
 ---
 
 # Looking forward for ...
@@ -740,13 +767,3 @@ NullPointerAnalysis: SonarQube is more precise but IntraJ remains competitive
 <img border="rounded"  src="imgs/performance.png">
 
 
-
----
-
-# IntraJ - A use case
-
-
-<iframe
-  src="http://localhost:8000/?editor=Monaco&fullscreen=true&&hideModals=false"
-  style="width:100%; height:200px;">
-</iframe>
